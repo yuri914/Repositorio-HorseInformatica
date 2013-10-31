@@ -8,6 +8,28 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+/* CSS Personalizado */
+
+#divLoginSystem {
+	margin-top: 10px;
+	padding-right: 10px;
+}
+
+#divFormRegister {
+	width: 500px;
+	margin: auto;
+}
+
+
+#leg {
+	text-align: center;
+	font-family: Yanone Kaffeesatz;
+	font-size: xx-large;
+}
+
+
+/* Fim do CSS personalizado */
+
 article,
 aside,
 details,
@@ -187,6 +209,11 @@ textarea {
   h3 {
     page-break-after: avoid;
   }
+}
+
+.centralizar {
+    margin: 0 auto;
+    float: none;
 }
 
 .clearfix {

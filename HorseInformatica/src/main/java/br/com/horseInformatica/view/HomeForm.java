@@ -82,7 +82,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		genero = new RadioChoice<EnumSexo>("genero");
 		genero.setChoices(Arrays.asList(EnumSexo.values()));
 		genero.setChoiceRenderer(new ChoiceRenderer<EnumSexo>("descricao"));
-		genero.setModel(new PropertyModel<EnumSexo>(getClienteCadastro(), "genero"));
+		genero.setModel(new PropertyModel<EnumSexo>(getClienteCadastro(), "sexo"));
 		genero.setSuffix("");
 		add(genero);
 
