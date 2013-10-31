@@ -48,8 +48,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<!-- JasperReports DEPENDENCIES -->
 	
+		<!-- DATETIME DEPENDENCIE -->
+	
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-datetime</artifactId>
+			<version>6.11.0</version>
+		</dependency>
+	
+		<!-- JasperReports DEPENDENCIES -->
+		
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
