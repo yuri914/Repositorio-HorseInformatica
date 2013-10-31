@@ -1,7 +1,9 @@
 package br.com.horseInformatica.wicket;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
-import br.com.horseInformatica.HomePage;
+
+import br.com.horseInformatica.view.HomePage;
+
 
 /**
  * Application object for your web application. If you want to run this application without deploying, run the Start class.
