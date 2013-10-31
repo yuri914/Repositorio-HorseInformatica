@@ -67,10 +67,12 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "From ?";
+		Query query = createQuery(jpql, persistenceClass.getSimpleName()); 
+		return query.getResultList();
 	}
 
 }
