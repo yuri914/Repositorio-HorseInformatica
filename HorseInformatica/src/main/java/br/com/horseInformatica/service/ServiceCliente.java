@@ -24,7 +24,6 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 	}
 
 	public Cliente autenticarClienteBanco(Cliente clienteLogin) {
-		
 		return null;
 	}
 	
