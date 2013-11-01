@@ -23,7 +23,7 @@ public class Contato implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco")
 	private Endereco endereco;
 	
@@ -66,7 +66,5 @@ public class Contato implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
 }
