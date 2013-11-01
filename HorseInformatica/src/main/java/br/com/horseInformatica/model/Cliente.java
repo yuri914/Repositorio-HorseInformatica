@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.horseInformatica.util.enumerations.EnumSexo;
@@ -50,7 +51,7 @@ public class Cliente implements Serializable {
 	@Column(name = "senha")
 	private String senha;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "contato")
 	private Contato contato;
 	
