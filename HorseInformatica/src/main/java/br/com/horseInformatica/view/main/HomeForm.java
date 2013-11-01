@@ -1,4 +1,4 @@
-package br.com.horseInformatica.view;
+package br.com.horseInformatica.view.main;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -14,10 +14,12 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
+import br.com.horseInformatica.view.index.BasePage;
 
 public abstract class HomeForm extends Form<Cliente> {
 
@@ -45,6 +47,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		add(feedback);
 
 		loginTxtField = new TextField<String>("login");
+		loginTxtField.setModel(new Model());
 		add(loginTxtField);
 
 		senhaTxtField = new PasswordTextField("senha");
@@ -58,14 +61,14 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				Cliente usuarioEncontrado = autenticarCliente(getClienteLogin());
-				if (usuarioEncontrado != null) {
-					getSession().setAttribute("usuarioSessao", usuarioEncontrado);
-
-				} else {
-					error("Usuario ou senha inválidos!");
-					target.add(feedback);
-				}
+				//Cliente usuarioEncontrado = autenticarCliente(getClienteLogin());
+				//if (usuarioEncontrado != null) {
+					//getSession().setAttribute("usuarioSessao", usuarioEncontrado);
+					setResponsePage(BasePage.class);
+				//} else {
+				//	error("Usuario ou senha inválidos!");
+					//target.add(feedback);
+			//	}
 			}
 
 			@Override

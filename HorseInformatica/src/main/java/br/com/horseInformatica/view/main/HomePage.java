@@ -1,4 +1,4 @@
-package br.com.horseInformatica.view;
+package br.com.horseInformatica.view.main;
 
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
