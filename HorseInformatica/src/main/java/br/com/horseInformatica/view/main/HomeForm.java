@@ -14,11 +14,11 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
+import br.com.horseInformatica.view.contato.CadastroContatoPage;
 import br.com.horseInformatica.view.index.BasePage;
 
 public abstract class HomeForm extends Form<Cliente> {
@@ -32,7 +32,8 @@ public abstract class HomeForm extends Form<Cliente> {
 	private TextField<String> nome;
 	private RadioChoice<EnumSexo> genero;
 	private DateTextField nascimento;
-	private TextField<Long> cpf;
+	private TextField<String> cpf;
+	private TextField<String> rg;
 	private TextField<String> loginCadastro;
 	private TextField<String> senhaCadastro;
 	private AjaxButton btCadastrar;
@@ -47,7 +48,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		add(feedback);
 
 		loginTxtField = new TextField<String>("login");
-		loginTxtField.setModel(new Model());
+		loginTxtField.setModel(new PropertyModel<String>(getClienteLogin(), "login"));
 		add(loginTxtField);
 
 		senhaTxtField = new PasswordTextField("senha");
@@ -55,32 +56,25 @@ public abstract class HomeForm extends Form<Cliente> {
 		senhaTxtField.setRequired(false);
 		add(senhaTxtField);
 
-		btEntrar = new AjaxButton("entrar") {
-
-			private static final long serialVersionUID = -7629953510484947562L;
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				//Cliente usuarioEncontrado = autenticarCliente(getClienteLogin());
-				//if (usuarioEncontrado != null) {
-					//getSession().setAttribute("usuarioSessao", usuarioEncontrado);
-					setResponsePage(BasePage.class);
-				//} else {
-				//	error("Usuario ou senha inválidos!");
-					//target.add(feedback);
-			//	}
-			}
-
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				target.add(feedback);
-			}
-		};
-		add(btEntrar);
-
 		nome = new TextField<String>("nome");
 		nome.setModel(new PropertyModel<String>(getClienteCadastro(), "nome"));
 		add(nome);
+
+		cpf = new TextField<String>("cpf");
+		cpf.setModel(new PropertyModel<String>(getClienteCadastro(), "cpf"));
+		add(cpf);
+
+		rg = new TextField<String>("rg");
+		rg.setModel(new PropertyModel<String>(getClienteCadastro(), "rg"));
+		add(rg);
+
+		nascimento = new DateTextField("dataNascimento", new PropertyModel<Date>(getClienteCadastro(), "dataNascimento"), new StyleDateConverter("S-", true));
+
+		DatePicker datePicker = new DatePicker();
+		datePicker.setShowOnFieldClick(true);
+		datePicker.setAutoHide(true);
+		nascimento.add(datePicker);
+		add(nascimento);
 
 		genero = new RadioChoice<EnumSexo>("genero");
 		genero.setChoices(Arrays.asList(EnumSexo.values()));
@@ -89,18 +83,30 @@ public abstract class HomeForm extends Form<Cliente> {
 		genero.setSuffix("");
 		add(genero);
 
-		nascimento = new DateTextField("dataNascimento",
-		new PropertyModel<Date>(getClienteCadastro(), "dataNascimento"), new StyleDateConverter("S-", true));
-		
-		DatePicker datePicker = new DatePicker();
-		datePicker.setShowOnFieldClick(true);
-		datePicker.setAutoHide(true);
-		nascimento.add(datePicker);
-		add(nascimento);
+		btEntrar = new AjaxButton("entrar") {
 
-		cpf = new TextField<Long>("cpf");
-		cpf.setModel(new PropertyModel<Long>(getClienteCadastro(), "cpf"));
-		add(cpf);
+			private static final long serialVersionUID = -7629953510484947562L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				// Cliente usuarioEncontrado =
+				// autenticarCliente(getClienteLogin());
+				// if (usuarioEncontrado != null) {
+				// getSession().setAttribute("usuarioSessao",
+				// usuarioEncontrado);
+				setResponsePage(BasePage.class);
+				// } else {
+				// error("Usuario ou senha inválidos!");
+				// target.add(feedback);
+				// }
+			}
+
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+				target.add(feedback);
+			}
+		};
+		add(btEntrar);
 
 		loginCadastro = new TextField<String>("loginCadastro");
 		loginCadastro.setModel(new PropertyModel<String>(getClienteCadastro(), "login"));
@@ -116,9 +122,9 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				salvarCliente(getClienteCadastro());
+			
 				getSession().setAttribute("usuarioSessao", getClienteCadastro());
-				// setResponsePage(ContatoCadastroPage.class);
+				setResponsePage(new CadastroContatoPage(getClienteCadastro()));
 			}
 
 			@Override

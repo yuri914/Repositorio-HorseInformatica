@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>Horse Informática</title>
+<link href="bootstrap.css" rel="stylesheet">
+
+</head>
+<body background="img/bg-horseInfo.png">
+	<form class="form-inline" wicket:id="formularioContato">
+		<div wicket:id="mensagem"></div>
+		<hr />
+		<fieldset>
+
+			<legend id="leg">Informações de Contado</legend>
+			<div id="divFormRegister" class="container-fluid form-horizontal">
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="cep">CEP:</label>
+					<div class="controls">
+						<input wicket:id="cep" type="text" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" wicket:for="logradouro">Logradouro:</label>
+					<div class="controls">
+						<input wicket:id="logradouro" type="text" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="bairro">Bairro:</label>
+					<div class="controls">
+						<input wicket:id="bairro" type="text" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="cidade">Cidade:</label>
+					<div class="controls">
+						<input wicket:id="cidade" type="text" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" wicket:for="estado">Estado:</label>
+					<div class="controls">
+						<input wicket:id="estado" type="text" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="email">Email:</label>
+					<div class="controls">
+						<input type="text" wicket:id="email" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="ddd">DDD:</label>
+					<div class="controls">
+						<input wicket:id="ddd" type="text" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="telefone">Telefone:</label>
+					<div class="controls">
+						<input wicket:id="telefone" type="text" />
+					</div>
+				</div>
+
+
+
+				<input class="btn btn-success offset2" type="submit"
+					wicket:id="confirmar" value="Confirmar" />
+			</div>
+		</fieldset>
+	</form>
+</body>
+</html>

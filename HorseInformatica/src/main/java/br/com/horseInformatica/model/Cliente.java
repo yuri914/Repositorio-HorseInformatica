@@ -3,8 +3,12 @@ package br.com.horseInformatica.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +23,7 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 3867149330766509162L;
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	private Integer id;
 	
@@ -34,8 +39,9 @@ public class Cliente implements Serializable {
 	@Column(name = "dataNascimento")
 	private Date dataNascimento;
 	
+	
 	@ManyToOne
-	@JoinColumn(name = "perfil")
+	@JoinColumn(name = "perfil", columnDefinition = "integer Default 1", insertable = false)
 	private Perfil perfil;
 	
 	@Column(name = "login")
@@ -44,7 +50,7 @@ public class Cliente implements Serializable {
 	@Column(name = "senha")
 	private String senha;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "contato")
 	private Contato contato;
 	
@@ -52,6 +58,7 @@ public class Cliente implements Serializable {
 	private Date dataCadastro;
 	
 	@Column(name = "sexo")
+	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
 	
 	public Integer getId() {
