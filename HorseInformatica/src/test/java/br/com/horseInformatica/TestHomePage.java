@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.horseInformatica.view.main.HomePage;
-import br.com.horseInformatica.wicket.WicketApplication;
 
 /**
  * Simple test using the WicketTester

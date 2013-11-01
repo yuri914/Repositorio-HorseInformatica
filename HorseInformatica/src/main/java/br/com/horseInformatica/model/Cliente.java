@@ -2,6 +2,7 @@ package br.com.horseInformatica.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.horseInformatica.util.enumerations.EnumSexo;
 
@@ -40,7 +42,6 @@ public class Cliente implements Serializable {
 	@Column(name = "dataNascimento")
 	private Date dataNascimento;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "perfil", columnDefinition = "integer Default 1", insertable = false)
 	private Perfil perfil;
@@ -51,7 +52,6 @@ public class Cliente implements Serializable {
 	@Column(name = "senha")
 	private String senha;
 	
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "contato")
 	private Contato contato;
@@ -62,6 +62,9 @@ public class Cliente implements Serializable {
 	@Column(name = "sexo")
 	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
+
+	@Transient
+	private List<Cliente> dadosCliente;
 	
 	public Integer getId() {
 		return id;
@@ -128,6 +131,12 @@ public class Cliente implements Serializable {
 	}
 	public void setSexo(EnumSexo sexo) {
 		this.sexo = sexo;
+	}
+	public List<Cliente> getDadosCliente() {
+		return dadosCliente;
+	}
+	public void setDadosCliente(List<Cliente> dadosCliente) {
+		this.dadosCliente = dadosCliente;
 	}
 
 	

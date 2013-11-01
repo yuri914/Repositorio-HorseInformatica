@@ -1,6 +1,7 @@
 package br.com.horseInformatica.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,16 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 		return daoCliente;
 	}
 
-	public Cliente autenticarClienteBanco(Cliente clienteLogin) {
-		return null;
+	public boolean autenticarClienteBanco(Cliente clienteLogin,String login, String senha) {
+		boolean verifica = false;
+		
+		List<Cliente> listaCliente = daoCliente.autenticarCliente(clienteLogin,login,senha);
+
+		if(listaCliente.size() >=0 ){
+			clienteLogin.setDadosCliente(listaCliente);
+			verifica = true;
+		}
+		return verifica;
 	}
 	
 	

@@ -89,16 +89,21 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				// Cliente usuarioEncontrado =
-				// autenticarCliente(getClienteLogin());
-				// if (usuarioEncontrado != null) {
-				// getSession().setAttribute("usuarioSessao",
-				// usuarioEncontrado);
-				setResponsePage(BasePage.class);
-				// } else {
-				// error("Usuario ou senha inválidos!");
-				// target.add(feedback);
-				// }
+		
+		if(verificarLoginSenha()){
+		if(autenticarCliente(getClienteLogin(), loginTxtField.getModelObject(), senhaTxtField.getModelObject())){
+					 
+		 if (getClienteLogin().getDadosCliente().isEmpty()) {
+			 error("login ou senha inválido");
+			
+		 } else {
+			 getSession().setAttribute("usuarioSessao",	getClienteLogin().getDadosCliente().get(0));
+			 setResponsePage(BasePage.class);
+			 }
+		}
+		
+		}
+		 target.add(feedback);
 			}
 
 			@Override
@@ -136,7 +141,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		add(btCadastrar);
 	}
 
-	protected abstract Cliente autenticarCliente(Cliente clienteLogin);
+	protected abstract boolean autenticarCliente(Cliente clienteLogin, String login,String senha);
 
 	protected abstract void salvarCliente(Cliente cliente);
 
@@ -152,6 +157,20 @@ public abstract class HomeForm extends Form<Cliente> {
 			clienteCadastro = new Cliente();
 		}
 		return clienteCadastro;
+	}
+	
+	private boolean verificarLoginSenha() {
+		boolean verificou = true;
+		if(loginTxtField.getModelObject() == null && senhaTxtField.getModelObject() == null){
+			error("Informe login e senha");
+			verificou = false;
+		}
+		
+		else if(loginTxtField.getModelObject() == null || senhaTxtField.getModelObject() == null){
+			error("Informe login e senha");
+			verificou = false;
+		}
+		return verificou;
 	}
 
 }

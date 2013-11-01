@@ -24,8 +24,8 @@ public class HomePage extends WebPage {
 				serviceCliente.persist(cliente);
 			}
 
-			protected Cliente autenticarCliente(Cliente clienteLogin) {
-				return serviceCliente.autenticarClienteBanco(clienteLogin);
+			protected boolean autenticarCliente(Cliente clienteLogin,String login, String senha) {
+				return serviceCliente.autenticarClienteBanco(clienteLogin,login,senha);
 			}
 		});
     }

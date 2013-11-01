@@ -61,17 +61,19 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 
 	@Override
 	public void delete(Object object) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
+	@Transactional
 	public T find(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<T> findAll() {
 		String jpql = "From ?";
 		Query query = createQuery(jpql, persistenceClass.getSimpleName()); 
