@@ -20,6 +20,9 @@
 	margin: auto;
 }
 
+#linkSair {
+	
+}
 
 #leg {
 	text-align: center;
@@ -27,6 +30,9 @@
 	font-size: xx-large;
 }
 
+#searchInput {
+	margin-top: 5px;
+}
 
 /* Fim do CSS personalizado */
 

@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 public class ItensVenda implements Serializable{
-
+	
 	private static final long serialVersionUID = 4118158237574641361L;
 	
 	private Integer id;

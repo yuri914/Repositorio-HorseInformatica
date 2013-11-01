@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,13 +15,14 @@ public class Perfil implements Serializable{
 	private static final long serialVersionUID = -4158975603699539658L;
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "descontroProduto")
+	@Column(name = "descontoProduto")
 	private Double descontoProduto;
 
 	public Integer getId() {

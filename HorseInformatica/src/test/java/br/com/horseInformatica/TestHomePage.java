@@ -4,7 +4,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.horseInformatica.view.HomePage;
+import br.com.horseInformatica.view.main.HomePage;
 import br.com.horseInformatica.wicket.WicketApplication;
 
 /**

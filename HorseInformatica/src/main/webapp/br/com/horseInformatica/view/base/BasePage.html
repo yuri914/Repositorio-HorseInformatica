@@ -6,17 +6,19 @@
 <link href="bootstrap.css" rel="stylesheet">
 
 </head>
-<body>
+<body background="img/bg-horseInfo.png">
 	<div class="navbar navbar-inverse">
 		<div class="navbar-inner">
 			<a class="brand" href="#">Horse Informática</a>
 			<ul class="nav">
-				<li><a href="#">Smartphones</a></li>
-				<li><a href="#">Computadores</a></li>
-				<li><a href="#">Acessórios</a></li>
-				<input type="text" class="search-query" placeholder="Busca">
+				<li><a wicket:id="smartphones">Smartphones</a></li>
+				<li><a wicket:id="computadores">Computadores</a></li>
+				<li><a wicket:id="acessorios">Acessórios</a></li>
+				<input id="searchInput" type="text" class="search-query" placeholder="Busca"/>
 			</ul>
 		</div>
 	</div>
+	<wicket:child/>
+	
 </body>
 </html>

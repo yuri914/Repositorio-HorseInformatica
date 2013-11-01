@@ -1,10 +1,10 @@
 package br.com.horseInformatica.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +15,7 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = -353801685740327324L;
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	private Integer id;
 

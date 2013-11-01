@@ -9,6 +9,8 @@ public abstract class GenericoService<T> {
 	protected abstract GenericDao<T> getDao();
 
 	public void persist(T object) {
+		
+		getDao().persist(object);
 
 	}
 
