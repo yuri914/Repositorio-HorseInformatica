@@ -10,6 +10,10 @@
 
 /* CSS Personalizado */
 
+a:hover {
+	text-decoration: none;
+}
+
 #divLoginSystem {
 	margin-top: 10px;
 	padding-right: 10px;
