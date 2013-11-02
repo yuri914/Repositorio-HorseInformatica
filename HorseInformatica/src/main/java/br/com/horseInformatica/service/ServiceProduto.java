@@ -1,6 +1,7 @@
 package br.com.horseInformatica.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,10 @@ public class ServiceProduto extends GenericoService<Produto> implements Serializ
 	protected GenericDao<Produto> getDao() {
 		return daoProduto;
 	}
+
+	public List<Produto> listarProdutos(Integer codigoTipo) {
+		
+		return ((IDaoProduto) getDao()).listarProdutosTipoBanco(codigoTipo);
+	}
+
 }

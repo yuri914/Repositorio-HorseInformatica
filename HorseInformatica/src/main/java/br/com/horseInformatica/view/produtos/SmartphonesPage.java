@@ -18,12 +18,12 @@ public class SmartphonesPage extends BasePage {
 	public SmartphonesPage(){
 		
 		produtosPanel = new ProdutoPanel("produtosPanel");
-		produtosPanel.getPanelProduto(listarProdutos());
+		produtosPanel.getPanelProduto(listarProdutosTipo(1));
 		add(produtosPanel);
 	}
 
-	private List<Produto> listarProdutos() {
-		return serviceProduto.findAll();
+	private List<Produto> listarProdutosTipo(Integer codigoTipo) {
+		return serviceProduto.listarProdutos(codigoTipo);
 	}
 	
 }
