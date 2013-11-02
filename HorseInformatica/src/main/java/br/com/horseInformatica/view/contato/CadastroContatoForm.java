@@ -1,8 +1,12 @@
 package br.com.horseInformatica.view.contato;
 
+import java.util.Arrays;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -15,6 +19,7 @@ import br.com.horseInformatica.model.Endereco;
 import br.com.horseInformatica.model.Perfil;
 import br.com.horseInformatica.service.AuxiliarService;
 import br.com.horseInformatica.to.EnderecoTO;
+import br.com.horseInformatica.util.enumerations.EnumDDD;
 import br.com.horseInformatica.view.base.BasePage;
 
 public abstract class CadastroContatoForm extends Form<Contato> {
@@ -24,7 +29,7 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 	private FeedbackPanel feedback;
 	private TextField<String> email;
 	private TextField<String> telefone;
-	private TextField<String> ddd;
+	private DropDownChoice<EnumDDD> ddd;
 	private Contato contato;
 
 	private TextField<Integer> cep;
@@ -54,8 +59,10 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 		telefone.setModel(new PropertyModel<String>(getContato(), "telefone"));
 		add(telefone);
 
-		ddd = new TextField<String>("ddd");
-		ddd.setModel(new PropertyModel<String>(getContato(), "ddd"));
+		ddd = new DropDownChoice<EnumDDD>("ddd");
+		ddd.setChoices(Arrays.asList(EnumDDD.values()));
+		ddd.setModel(new PropertyModel<EnumDDD>(getContato(), "ddd"));
+		ddd.setChoiceRenderer(new ChoiceRenderer<EnumDDD>("codigo"));
 		add(ddd);
 
 		cep = new TextField<Integer>("cep");

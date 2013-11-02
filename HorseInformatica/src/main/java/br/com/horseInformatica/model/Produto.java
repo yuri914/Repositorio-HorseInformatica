@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +29,18 @@ public class Produto implements Serializable {
 
 	@Column(name = "imagem")
 	private byte[] imagem;
+
+	@OneToOne
+	@JoinColumn(name = "tipo")
+	private Tipo tipo;
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
 
 	public Integer getId() {
 		return id;

@@ -2,6 +2,8 @@ package br.com.horseInformatica.view.administrador;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
@@ -10,7 +12,9 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.horseInformatica.model.Produto;
+import br.com.horseInformatica.model.Tipo;
 import br.com.horseInformatica.service.ServiceProduto;
+import br.com.horseInformatica.service.ServiceTipo;
 
 public abstract class AdministradorProdutoPage extends AdministradorPage {
 
@@ -18,11 +22,14 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 	
 	@SpringBean
 	private ServiceProduto serviceProduto;
+	@SpringBean
+	private ServiceTipo serviceTipo;
 	private Produto produto;
 	private TextField<String> nomeProduto;
 	private TextField<Double> valorProduto;
 	private FileUploadField imagemProduto;
 	private FeedbackPanel feedback;
+	private DropDownChoice<Tipo> tipo;
 	
 
 	public AdministradorProdutoPage(){
@@ -41,6 +48,11 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 		valorProduto = new TextField<Double>("valor");
 		valorProduto.setModel(new PropertyModel<Double>(getProduto(), "valor"));
 		formulario.add(valorProduto);
+	
+		tipo = new DropDownChoice<Tipo>("tipo", serviceTipo.findAll());
+		tipo.setModel(new PropertyModel<Tipo>(getProduto(), "tipo"));
+		tipo.setChoiceRenderer(new ChoiceRenderer<Tipo>("nome"));
+		formulario.add(tipo);
 		
 		imagemProduto = new FileUploadField("imagem");
 		//imagemProduto.setModel(new PropertyModel(getProduto(), "imagem"));
