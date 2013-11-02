@@ -18,6 +18,7 @@ import org.apache.wicket.model.PropertyModel;
 
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
+import br.com.horseInformatica.view.administrador.AdministradorPage;
 import br.com.horseInformatica.view.base.BasePage;
 import br.com.horseInformatica.view.contato.CadastroContatoPage;
 
@@ -89,21 +90,18 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-		
-		if(verificarLoginSenha()){
-		if(autenticarCliente(getClienteLogin(), loginTxtField.getModelObject(), senhaTxtField.getModelObject())){
-					 
-		 if (getClienteLogin().getDadosCliente().isEmpty()) {
-			 error("login ou senha inválido");
-			
-		 } else {
-			 getSession().setAttribute("usuarioSessao",	getClienteLogin().getDadosCliente().get(0));
-			 setResponsePage(BasePage.class);
-			 }
-		}
-		
-		}
-		 target.add(feedback);
+				Cliente clienteEncontrado = autenticarCliente(getClienteLogin());
+				if (verificarLoginSenha()){
+					if (clienteEncontrado != null) {
+						getSession().setAttribute("usuarioSessao", clienteEncontrado);
+						setResponsePage(BasePage.class);
+					} else {
+						error("Usuario ou senha inválido.");
+					}
+				} else {
+					error("Informe login e senha.");
+				}
+				target.add(feedback);
 			}
 
 			@Override
@@ -127,9 +125,9 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-			
-				getSession().setAttribute("usuarioSessao", getClienteCadastro());
-				setResponsePage(new CadastroContatoPage(getClienteCadastro()));
+				/*getSession().setAttribute("usuarioSessao", getClienteCadastro());
+				setResponsePage(new CadastroContatoPage(getClienteCadastro()));*/
+				setResponsePage(AdministradorPage.class);
 			}
 
 			@Override
@@ -141,7 +139,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		add(btCadastrar);
 	}
 
-	protected abstract boolean autenticarCliente(Cliente clienteLogin, String login,String senha);
+	protected abstract Cliente autenticarCliente(Cliente clienteLogin);
 
 	protected abstract void salvarCliente(Cliente cliente);
 
@@ -158,16 +156,14 @@ public abstract class HomeForm extends Form<Cliente> {
 		}
 		return clienteCadastro;
 	}
-	
+
 	private boolean verificarLoginSenha() {
 		boolean verificou = true;
-		if(loginTxtField.getModelObject() == null && senhaTxtField.getModelObject() == null){
-			error("Informe login e senha");
+		if (loginTxtField.getModelObject() == null && senhaTxtField.getModelObject() == null) {
 			verificou = false;
 		}
-		
-		else if(loginTxtField.getModelObject() == null || senhaTxtField.getModelObject() == null){
-			error("Informe login e senha");
+
+		else if (loginTxtField.getModelObject() == null || senhaTxtField.getModelObject() == null) {
 			verificou = false;
 		}
 		return verificou;

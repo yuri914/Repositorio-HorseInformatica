@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>Horse Informática</title>
+<link href="bootstrap.css" rel="stylesheet">
+
+</head>
+<body background="img/bg-horseInfo.png">
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="#">Horse Informática</a>
+			<ul class="nav">
+				<li><a wicket:id="produtos">Produtos</a></li>
+				<!-- <li><a wicket:id="computadores">Computadores</a></li>
+				<li><a wicket:id="acessorios">Acessórios</a></li> -->
+				<input id="searchInput" type="text" class="search-query" placeholder="Busca"/>
+			</ul>
+		</div>
+	</div>
+	<wicket:child/>
+</body>
+</html>

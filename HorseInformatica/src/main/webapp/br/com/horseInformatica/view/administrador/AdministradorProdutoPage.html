@@ -1,0 +1,52 @@
+<wicket:extend>
+	<form wicket:id="formAdmProduto" class="form-horizontal">
+		<fieldset>
+
+			<div wicket:id="mensagens"></div>
+
+			<!-- Form Name -->
+			<legend>Cadastro de Produtos</legend>
+
+			<!-- Text input-->
+			<div class="control-group">
+				<label class="control-label" wicket:for="nome">Nome:</label>
+				<div class="controls">
+					<input wicket:id="nome" type="text"
+						placeholder="Insira o nome do produto..." class="input-large">
+
+				</div>
+			</div>
+
+			<!-- Prepended text-->
+			<div class="control-group">
+				<label class="control-label" wicket:for="valor">Valor:</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on">R$</span> <input wicket:id="valor"
+							class="input-small" placeholder="Valor Produto..." type="text">
+					</div>
+
+				</div>
+			</div>
+
+			<!-- File Button -->
+			<div class="control-group">
+				<label class="control-label" wicket:for="imagem">Imagem do
+					Produto:</label>
+				<div class="controls">
+					<input wicket:id="imagem" class="input-file" type="file">
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="control-group">
+				<label class="control-label" for="singlebutton"></label>
+				<div class="controls">
+					<input wicket:id="cadastrar" type="submit" valur="Cadastrar"
+						class="btn btn-primary"></input>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+</wicket:extend>

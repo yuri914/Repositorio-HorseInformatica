@@ -24,16 +24,13 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 		return daoCliente;
 	}
 
-	public boolean autenticarClienteBanco(Cliente clienteLogin,String login, String senha) {
-		boolean verifica = false;
-		
-		List<Cliente> listaCliente = daoCliente.autenticarCliente(clienteLogin,login,senha);
-
-		if(listaCliente.size() >=0 ){
-			clienteLogin.setDadosCliente(listaCliente);
-			verifica = true;
+	public Cliente autenticarClienteBanco(Cliente clienteLogin) {
+		Cliente clienteEncontrado = null;
+		List<Cliente> listaCliente = daoCliente.autenticarCliente(clienteLogin);
+		if (listaCliente.size() != 0){
+			clienteEncontrado = listaCliente.get(0);
 		}
-		return verifica;
+		return clienteEncontrado;
 	}
 	
 	

@@ -17,15 +17,15 @@ public class DaoClienteImpl extends JpaGenericDao<Cliente> implements IDaoClient
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> autenticarCliente(Cliente clienteLogi,String login, String senha) {
+	public List<Cliente> autenticarCliente(Cliente clienteLogin) {
 
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("From Cliente u");
 		sb.append(" WHERE 1=1");
-		if(login != "" && senha != ""){
-		sb.append(" and u.login = '"+ login+"'");
-		sb.append(" and u.senha = '"+ senha+"'");
+		if(clienteLogin.getLogin() != "" && clienteLogin.getSenha() != ""){
+			sb.append(" and u.login = '"+ clienteLogin.getLogin() +"'");
+			sb.append(" and u.senha = '"+ clienteLogin.getSenha() +"'");
 		}
 		return getEntityManager().createQuery(sb.toString()).getResultList();
 	}
