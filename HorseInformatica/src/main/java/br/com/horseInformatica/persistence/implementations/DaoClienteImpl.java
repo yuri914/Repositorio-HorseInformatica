@@ -40,7 +40,6 @@ public class DaoClienteImpl extends JpaGenericDao<Cliente> implements IDaoClient
 		if (nomeClienteConsulta != null){
 			query = super.createQuery(jpql, "%'" + nomeClienteConsulta + "'%");
 		}
-		
 		return query.getResultList();
 	}
 	
