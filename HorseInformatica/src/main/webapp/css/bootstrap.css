@@ -15,6 +15,24 @@
 	padding-right: 10px;
 }
 
+#tituloSmart {
+	text-align: center;
+	width: 800px;
+	margin: auto;
+}
+
+#tituloComp {
+	text-align: center;
+	width: 800px;
+	margin: auto;
+}
+
+#tituloAcessorios {
+	text-align: center;
+	width: 800px;
+	margin: auto;
+}
+
 #divFormRegister {
 	width: 500px;
 	margin: auto;

@@ -24,7 +24,6 @@ public class AdministradorPage extends WebPage {
 					private static final long serialVersionUID = 8361089168930925729L;
 				});
 			}
-			
 		});
 		
 		add(new AjaxLink<Void>("sair"){
@@ -36,9 +35,7 @@ public class AdministradorPage extends WebPage {
 				getSession().invalidate();
 				setResponsePage(HomePage.class);
 			}
-			
 		});
-		
 	}
 	
 	public void renderHead(IHeaderResponse response) {

@@ -14,5 +14,4 @@ public class AuxiliarService implements Serializable {
 		RestTemplate rest = new RestTemplate();
 		return rest.getForObject("http://cep.paicon.com.br/json/" + cep, EnderecoTO.class);
 	}
-	
 }

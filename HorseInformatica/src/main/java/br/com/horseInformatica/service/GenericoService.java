@@ -9,26 +9,24 @@ public abstract class GenericoService<T> {
 	protected abstract GenericDao<T> getDao();
 
 	public void persist(T object) {
-		
 		getDao().persist(object);
-
 	}
 
 	public void update(T object) {
-
+		getDao().update(object);
 	}
 
 	public void delete(T object) {
-
+		getDao().delete(object);
 	}
 
 	public T find(Integer id) {
-		return null;
+		return getDao().find(id);
 
 	}
 
 	public List<T> findAll() {
-		return null;
+		return getDao().findAll();
 	}
 
 }

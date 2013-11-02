@@ -1,7 +1,6 @@
 package br.com.horseInformatica.persistence.generics;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -40,7 +39,7 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 	}
 
 	public Query createQuery(String jpql, Object...params){
-		Query query = getEntityManager().createNamedQuery(jpql);
+		Query query = this.getEntityManager().createQuery(jpql);
 		int i = 0;
 		for(Object param : params){
 			query.setParameter(++i, param);
@@ -55,17 +54,18 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 	}
 
 	@Override
+	@Transactional
 	public void update(Object object) {
 		getEntityManager().merge(object);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Object object) {
 		
 	}
 
 	@Override
-	@Transactional
 	public T find(Integer id) {
 		
 		return null;
@@ -73,11 +73,8 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<T> findAll() {
-		String jpql = "From ?";
-		Query query = createQuery(jpql, persistenceClass.getSimpleName()); 
+		Query query = createQuery("From " + persistenceClass.getSimpleName()); 
 		return query.getResultList();
 	}
-
 }
