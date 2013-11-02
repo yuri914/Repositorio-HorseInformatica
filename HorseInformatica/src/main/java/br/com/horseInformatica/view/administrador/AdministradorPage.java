@@ -6,6 +6,8 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 
+import br.com.horseInformatica.view.main.HomePage;
+
 public class AdministradorPage extends WebPage {
 
 	private static final long serialVersionUID = -3196522595163082628L;
@@ -24,6 +26,19 @@ public class AdministradorPage extends WebPage {
 			}
 			
 		});
+		
+		add(new AjaxLink<Void>("sair"){
+
+			private static final long serialVersionUID = -4616557070666546296L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				getSession().invalidate();
+				setResponsePage(HomePage.class);
+			}
+			
+		});
+		
 	}
 	
 	public void renderHead(IHeaderResponse response) {
