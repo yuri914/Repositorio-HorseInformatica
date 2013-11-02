@@ -2,6 +2,8 @@ package br.com.horseInformatica.persistence.implementations;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.horseInformatica.model.Cliente;
@@ -30,4 +32,16 @@ public class DaoClienteImpl extends JpaGenericDao<Cliente> implements IDaoClient
 		return getEntityManager().createQuery(sb.toString()).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Cliente> findClienteByNameDatabase(String nomeClienteConsulta){
+		Query query = null;
+		String jpql = "From Cliente c where c.nome like ?";
+		
+		if (nomeClienteConsulta != null){
+			query = super.createQuery(jpql, "%'" + nomeClienteConsulta + "'%");
+		}
+		
+		return query.getResultList();
+	}
+	
 }

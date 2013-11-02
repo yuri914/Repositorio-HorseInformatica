@@ -26,6 +26,16 @@ public class AdministradorPage extends WebPage {
 			}
 		});
 		
+		add(new AjaxLink<Void>("clientes"){
+
+			private static final long serialVersionUID = -4616557070666546296L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				setResponsePage(AdministradorClientePage.class);
+			}
+		});
+		
 		add(new AjaxLink<Void>("sair"){
 
 			private static final long serialVersionUID = -4616557070666546296L;

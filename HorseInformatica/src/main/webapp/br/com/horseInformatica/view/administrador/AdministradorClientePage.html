@@ -1,0 +1,29 @@
+<wicket:extend>
+
+	<form wicket:id="formAdmCliente" class="form-horizontal">
+	<div wicket:id="mensages"></div>
+		<fieldset>
+
+			<!-- Form Name -->
+			<legend align="center">Consulta de Clientes</legend>
+
+			<!-- Text input-->
+			<div class="control-group">
+				<label class="control-label" for="textinput">Nome:</label>
+				<div class="controls">
+					<input wicket:id="nomeCliente" type="text" placeholder="Insira o nome do cliente..." class="input-xlarge"/>
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="control-group">
+				<label class="control-label" for="singlebutton"></label>
+				<div class="controls">
+					<input wicket:id="consultar" type="submit" value="Consultar" class="btn btn-primary"></input>
+				</div>
+			</div>
+
+		</fieldset>
+	<div wicket:id="panelClientes"></div>
+	</form>
+</wicket:extend>

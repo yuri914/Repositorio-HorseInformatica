@@ -8,5 +8,5 @@ import br.com.horseInformatica.persistence.generics.GenericDao;
 public interface IDaoCliente extends GenericDao<Cliente>{
 
 	List<Cliente> autenticarCliente(Cliente clienteLogin);
-
+	List<Cliente> findClienteByNameDatabase(String nomeClienteConsulta);
 }

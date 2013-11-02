@@ -18,7 +18,6 @@ public class ServiceProduto extends GenericoService<Produto> implements Serializ
 	private IDaoProduto daoProduto;
 	@Override
 	protected GenericDao<Produto> getDao() {
-	
 		return daoProduto;
 	}
 

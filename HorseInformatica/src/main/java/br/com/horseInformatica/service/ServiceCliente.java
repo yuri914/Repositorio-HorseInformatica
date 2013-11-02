@@ -20,7 +20,6 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 
 	@Override
 	protected GenericDao<Cliente> getDao() {
-		
 		return daoCliente;
 	}
 
@@ -31,6 +30,10 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 			clienteEncontrado = listaCliente.get(0);
 		}
 		return clienteEncontrado;
+	}
+
+	public List<Cliente> findClienteByName(String nomeClienteConsulta) {
+		return ((IDaoCliente) getDao()).findClienteByNameDatabase(nomeClienteConsulta);
 	}
 	
 	
