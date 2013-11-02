@@ -18,7 +18,10 @@ public class AdministradorPage extends WebPage {
 
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(AdministradorProdutoPage.class);
+				setResponsePage(new AdministradorProdutoPage() {
+
+					private static final long serialVersionUID = 8361089168930925729L;
+				});
 			}
 			
 		});

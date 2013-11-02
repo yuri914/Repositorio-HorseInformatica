@@ -20,7 +20,6 @@ import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
 import br.com.horseInformatica.view.administrador.AdministradorPage;
 import br.com.horseInformatica.view.base.BasePage;
-import br.com.horseInformatica.view.contato.CadastroContatoPage;
 
 public abstract class HomeForm extends Form<Cliente> {
 
