@@ -5,7 +5,11 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.Model;
 
+import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.view.main.HomePage;
 import br.com.horseInformatica.view.produtos.AcessoriosPage;
 import br.com.horseInformatica.view.produtos.ComputadoresPage;
 import br.com.horseInformatica.view.produtos.SmartphonesPage;
@@ -13,8 +17,15 @@ import br.com.horseInformatica.view.produtos.SmartphonesPage;
 public class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 6718941760776214183L;
+	private Label saudacao;
 
 	public BasePage(){
+		
+		Cliente clienteSessao = (Cliente) getSession().getAttribute("clienteSessao");
+		
+		saudacao = new Label("saudacaoCliente");
+		saudacao.setDefaultModel(Model.of("Bem vindo, " + clienteSessao.getNome()));
+		add(saudacao);
 		
 		add(new AjaxLink<Void>("smartphones"){
 
@@ -48,6 +59,18 @@ public class BasePage extends WebPage {
 			}
 			
 		});
+		
+		add(new AjaxLink<Void>("sair"){
+
+			private static final long serialVersionUID = 265302040222864545L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				getSession().invalidate();
+				setResponsePage(HomePage.class);
+			}
+		});
+		
 	}
 	
 	public void renderHead(IHeaderResponse response) {

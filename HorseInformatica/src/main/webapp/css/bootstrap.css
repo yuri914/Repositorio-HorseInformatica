@@ -20,6 +20,15 @@
 	margin: auto;
 }
 
+#tituloFormProduto {
+	text-align: center;
+}
+
+#fieldsetCadastroProduto {
+	margin: auto;
+	width: 600px;
+}
+
 #linkSair {
 	
 }

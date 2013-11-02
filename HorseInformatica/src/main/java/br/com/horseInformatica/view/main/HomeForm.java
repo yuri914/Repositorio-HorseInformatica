@@ -20,6 +20,7 @@ import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
 import br.com.horseInformatica.view.administrador.AdministradorPage;
 import br.com.horseInformatica.view.base.BasePage;
+import br.com.horseInformatica.view.contato.CadastroContatoPage;
 
 public abstract class HomeForm extends Form<Cliente> {
 
@@ -92,8 +93,12 @@ public abstract class HomeForm extends Form<Cliente> {
 				Cliente clienteEncontrado = autenticarCliente(getClienteLogin());
 				if (verificarLoginSenha()){
 					if (clienteEncontrado != null) {
-						getSession().setAttribute("usuarioSessao", clienteEncontrado);
-						setResponsePage(BasePage.class);
+						getSession().setAttribute("clienteSessao", clienteEncontrado);
+						if(clienteEncontrado.getLogin().equals("admin")){
+							setResponsePage(AdministradorPage.class);
+						}else {
+							setResponsePage(BasePage.class);
+						}
 					} else {
 						error("Usuario ou senha inválido.");
 					}
@@ -124,9 +129,8 @@ public abstract class HomeForm extends Form<Cliente> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				/*getSession().setAttribute("usuarioSessao", getClienteCadastro());
-				setResponsePage(new CadastroContatoPage(getClienteCadastro()));*/
-				setResponsePage(AdministradorPage.class);
+				getSession().setAttribute("usuarioSessao", getClienteCadastro());
+				setResponsePage(new CadastroContatoPage(getClienteCadastro()));
 			}
 
 			@Override
