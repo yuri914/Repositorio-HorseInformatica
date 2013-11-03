@@ -10,10 +10,11 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.request.resource.ByteArrayResource;
+import org.apache.wicket.request.resource.ResourceReference;
 
 import br.com.horseInformatica.model.Produto;
 
-public class ProdutoPanel extends Panel {
+public abstract class ProdutoPanel extends Panel {
 
 	private static final long serialVersionUID = 7889031519398250926L;
 
@@ -30,7 +31,7 @@ public class ProdutoPanel extends Panel {
 			@Override
 			protected void populateItem(Item<Produto> item) {
 				Produto produto = item.getModelObject();
-				ByteArrayResource resource = new ByteArrayResource("image/jpeg", produto.getImagem());
+				ByteArrayResource resource = new ByteArrayResource("image/jpeg", buscarImagem(produto.getCaminhoImagem()));
 				item.add(new Image("imagem", resource));
 				item.add(new Label("nome", produto.getNome()));
 			}
@@ -38,4 +39,6 @@ public class ProdutoPanel extends Panel {
 		add(new PagingNavigator("paginacao", repetidor));
 		add(repetidor);
 	}
+
+	protected abstract byte[] buscarImagem(String caminhoImagem);
 }

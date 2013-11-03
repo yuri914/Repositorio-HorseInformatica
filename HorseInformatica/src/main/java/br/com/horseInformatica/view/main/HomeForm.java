@@ -8,6 +8,7 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.datetime.StyleDateConverter;
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -43,9 +44,9 @@ public abstract class HomeForm extends Form<Cliente> {
 
 	public HomeForm(String id) {
 		super(id);
-
+		
 		feedback = new FeedbackPanel("mensagem");
-		feedback.setOutputMarkupId(true);
+		feedback.setOutputMarkupPlaceholderTag(true);
 		add(feedback);
 
 		loginTxtField = new TextField<String>("login");

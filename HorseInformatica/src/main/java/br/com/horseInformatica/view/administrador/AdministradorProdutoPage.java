@@ -1,5 +1,7 @@
 package br.com.horseInformatica.view.administrador;
 
+import java.io.IOException;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -64,7 +66,13 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 			
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				getProduto().setImagem(imagemProduto.getFileUpload().getBytes());
+				String clientFileName = imagemProduto.getFileUpload().getClientFileName();
+				getProduto().setCaminhoImagem("C://Users//yuri88//git//Repositorio-HorseInformatica//HorseInformatica//src//main//webapp//img//produtos//" + clientFileName);
+				try {
+					serviceProduto.gravarImagem(imagemProduto.getFileUpload().getInputStream(), getProduto().getCaminhoImagem());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				serviceProduto.persist(getProduto());
 				success("Produto cadastrado com sucesso");
 				target.add(feedback);

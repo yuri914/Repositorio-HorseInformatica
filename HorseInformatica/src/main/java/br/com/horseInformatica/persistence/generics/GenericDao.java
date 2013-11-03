@@ -2,8 +2,6 @@ package br.com.horseInformatica.persistence.generics;
 
 import java.util.List;
 
-import br.com.horseInformatica.model.Cliente;
-
 public interface GenericDao <T> {
 
 	public void persist(T object);

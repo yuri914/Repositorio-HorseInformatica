@@ -28,7 +28,7 @@ public class Produto implements Serializable {
 	private Double valor;
 
 	@Column(name = "imagem")
-	private byte[] imagem;
+	private String caminhoImagem;
 
 	@OneToOne
 	@JoinColumn(name = "tipo")
@@ -66,12 +66,11 @@ public class Produto implements Serializable {
 		this.valor = valor;
 	}
 
-	public byte[] getImagem() {
-		return imagem;
+	public String getCaminhoImagem() {
+		return caminhoImagem;
 	}
 
-	public void setImagem(byte[] imagem) {
-		this.imagem = imagem;
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
-
 }
