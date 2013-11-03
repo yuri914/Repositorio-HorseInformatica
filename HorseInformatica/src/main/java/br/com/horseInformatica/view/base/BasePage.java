@@ -7,8 +7,10 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.service.ServiceProduto;
 import br.com.horseInformatica.view.main.HomePage;
 import br.com.horseInformatica.view.produtos.AcessoriosPage;
 import br.com.horseInformatica.view.produtos.ComputadoresPage;
@@ -17,6 +19,9 @@ import br.com.horseInformatica.view.produtos.SmartphonesPage;
 public class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 6718941760776214183L;
+	
+	@SpringBean
+	private ServiceProduto serviceProduto;
 	private Label saudacao;
 
 	public BasePage(){
@@ -71,6 +76,10 @@ public class BasePage extends WebPage {
 			}
 		});
 		
+	}
+	
+	protected byte[] buscarImagemDiretorio(String caminhoImagem) {
+		return serviceProduto.buscarImagem(caminhoImagem);
 	}
 	
 	public void renderHead(IHeaderResponse response) {

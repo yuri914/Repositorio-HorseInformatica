@@ -30,10 +30,6 @@ public class SmartphonesPage extends BasePage {
 		add(produtosPanel);
 	}
 
-	protected byte[] buscarImagemDiretorio(String caminhoImagem) {
-		return serviceProduto.buscarImagem(caminhoImagem);
-	}
-
 	private List<Produto> listarProdutosTipo(Integer codigoTipo) {
 		return serviceProduto.listarProdutos(codigoTipo);
 	}

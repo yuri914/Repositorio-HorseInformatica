@@ -32,10 +32,6 @@ public class ComputadoresPage extends BasePage {
 		produtosPanel.getPanelProduto(listarProdutosTipo(2));
 		add(produtosPanel);
 	}
-	
-	protected byte[] buscarImagemDiretorio(String caminhoImagem) {
-		return serviceProduto.buscarImagem(caminhoImagem);
-	}
 
 	private List<Produto> listarProdutosTipo(Integer codigoTipo) {
 		return serviceProduto.listarProdutos(codigoTipo);
