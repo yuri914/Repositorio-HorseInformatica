@@ -82,7 +82,7 @@ public abstract class HomeForm extends Form<Cliente> {
 		genero.setChoices(Arrays.asList(EnumSexo.values()));
 		genero.setChoiceRenderer(new ChoiceRenderer<EnumSexo>("descricao"));
 		genero.setModel(new PropertyModel<EnumSexo>(getClienteCadastro(), "sexo"));
-		genero.setSuffix("");
+		genero.setSuffix("  ");
 		add(genero);
 
 		btEntrar = new AjaxButton("entrar") {

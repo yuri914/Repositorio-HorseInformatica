@@ -11,7 +11,7 @@ import org.apache.wicket.model.Model;
 
 import br.com.horseInformatica.model.Cliente;
 
-public abstract class AdministradorClienteForm extends Form {
+public abstract class AdministradorClienteForm extends Form<Cliente> {
 
 	private static final long serialVersionUID = -5228865222034777465L;
 
