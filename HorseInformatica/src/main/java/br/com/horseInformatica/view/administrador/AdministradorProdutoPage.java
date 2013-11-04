@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.web.context.ContextLoader;
 
 import br.com.horseInformatica.model.Produto;
 import br.com.horseInformatica.model.Tipo;
@@ -57,29 +58,31 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 		formulario.add(tipo);
 		
 		imagemProduto = new FileUploadField("imagem");
-		//imagemProduto.setModel(new PropertyModel(getProduto(), "imagem"));
 		formulario.add(imagemProduto);
-		
 		formulario.add(new AjaxButton("cadastrar"){
 
 			private static final long serialVersionUID = -2741513535364626687L;
 			
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				String clientFileName = imagemProduto.getFileUpload().getClientFileName();
-				getProduto().setCaminhoImagem("C://Users//yuri88//git//Repositorio-HorseInformatica//HorseInformatica//src//main//webapp//img//produtos//" + clientFileName);
-				try {
-					serviceProduto.gravarImagem(imagemProduto.getFileUpload().getInputStream(), getProduto().getCaminhoImagem());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				getProduto().setImagem(imagemProduto.getFileUpload().getBytes());
 				serviceProduto.persist(getProduto());
-				success("Produto cadastrado com sucesso");
-				target.add(feedback);
+				setResponsePage(new AdministradorProdutoPage() {
+				});
+				target.appendJavaScript("alert('Produto cadastrado com sucesso.')");
+				target.add(feedback, form);
 			}
 		});
 	}
 
+	public String getApplicationPath(){
+		CharSequence space = "%20", replace = " ";
+		String path = ClassLoader.getSystemResource("").getPath().replace(space, replace);
+		String pathFormatada = path.substring(1, path.lastIndexOf("/") - 3);
+		return pathFormatada;
+		
+	}
+	
 	public Produto getProduto() {
 		if (produto == null) {
 			produto = new Produto();

@@ -44,7 +44,7 @@ public abstract class HomeForm extends Form<Cliente> {
 
 	public HomeForm(String id) {
 		super(id);
-		
+
 		feedback = new FeedbackPanel("mensagem");
 		feedback.setOutputMarkupPlaceholderTag(true);
 		add(feedback);
@@ -92,12 +92,12 @@ public abstract class HomeForm extends Form<Cliente> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				Cliente clienteEncontrado = autenticarCliente(getClienteLogin());
-				if (verificarLoginSenha()){
+				if (verificarLoginSenha()) {
 					if (clienteEncontrado != null) {
 						getSession().setAttribute("clienteSessao", clienteEncontrado);
-						if(clienteEncontrado.getLogin().equals("admin")){
+						if (clienteEncontrado.getLogin().equals("admin")) {
 							setResponsePage(AdministradorPage.class);
-						}else {
+						} else {
 							setResponsePage(BasePage.class);
 						}
 					} else {

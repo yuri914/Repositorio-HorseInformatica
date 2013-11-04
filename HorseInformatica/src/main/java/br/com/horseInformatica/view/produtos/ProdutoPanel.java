@@ -31,7 +31,7 @@ public abstract class ProdutoPanel extends Panel {
 			@Override
 			protected void populateItem(Item<Produto> item) {
 				Produto produto = item.getModelObject();
-				ByteArrayResource resource = new ByteArrayResource("image/jpeg", buscarImagem(produto.getCaminhoImagem()));
+				ByteArrayResource resource = new ByteArrayResource("image/jpeg", produto.getImagem());
 				item.add(new Image("imagem", resource));
 				item.add(new Label("nome", produto.getNome()));
 			}
@@ -39,6 +39,4 @@ public abstract class ProdutoPanel extends Panel {
 		add(new PagingNavigator("paginacao", repetidor));
 		add(repetidor);
 	}
-
-	protected abstract byte[] buscarImagem(String caminhoImagem);
 }

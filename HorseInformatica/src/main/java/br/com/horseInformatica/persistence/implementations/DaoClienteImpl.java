@@ -24,12 +24,12 @@ public class DaoClienteImpl extends JpaGenericDao<Cliente> implements IDaoClient
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("From Cliente u");
-		sb.append(" WHERE 1=1");
-		if (clienteLogin.getLogin() != "" && clienteLogin.getSenha() != "") {
-			sb.append(" and u.login = '" + clienteLogin.getLogin() + "'");
-			sb.append(" and u.senha = '" + clienteLogin.getSenha() + "'");
-		}
-		return getEntityManager().createQuery(sb.toString()).getResultList();
+		sb.append(" where u.login = ?");
+		sb.append(" and u.senha = ?");
+		
+		Query query = super.createQuery(sb.toString(), clienteLogin.getLogin(), clienteLogin.getSenha());
+		
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
