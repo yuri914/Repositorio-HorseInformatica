@@ -21,7 +21,7 @@ public class AdministradorClientePanel extends Panel {
 	}
 
 	public void getGridCliente(List<Cliente> listaClientes){
-		DataView<Cliente> repetidor = new DataView<Cliente>("clientes", new ListDataProvider<Cliente>(listaClientes)){
+		DataView<Cliente> repetidor = new DataView<Cliente>("clientes", new ListDataProvider<Cliente>(listaClientes),10){
 
 			private static final long serialVersionUID = 5863600565352946239L;
 
@@ -34,8 +34,8 @@ public class AdministradorClientePanel extends Panel {
 				item.add(new Label("telefone", clienteAtual.getContato().getTelefone()));
 			}
 		};
-		add(new PagingNavigator("paginacao", repetidor));
-		add(repetidor);
+		addOrReplace(new PagingNavigator("paginacao", repetidor));
+		addOrReplace(repetidor);
 	}
 	
 }

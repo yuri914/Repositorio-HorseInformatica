@@ -22,25 +22,27 @@ public class DaoClienteImpl extends JpaGenericDao<Cliente> implements IDaoClient
 	public List<Cliente> autenticarCliente(Cliente clienteLogin) {
 
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("From Cliente u");
 		sb.append(" WHERE 1=1");
-		if(clienteLogin.getLogin() != "" && clienteLogin.getSenha() != ""){
-			sb.append(" and u.login = '"+ clienteLogin.getLogin() +"'");
-			sb.append(" and u.senha = '"+ clienteLogin.getSenha() +"'");
+		if (clienteLogin.getLogin() != "" && clienteLogin.getSenha() != "") {
+			sb.append(" and u.login = '" + clienteLogin.getLogin() + "'");
+			sb.append(" and u.senha = '" + clienteLogin.getSenha() + "'");
 		}
 		return getEntityManager().createQuery(sb.toString()).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> findClienteByNameDatabase(String nomeClienteConsulta){
+	public List<Cliente> findClienteByNameDatabase(String nomeClienteConsulta) {
 		Query query = null;
-		String jpql = "From Cliente c where c.nome like ?";
-		
-		if (nomeClienteConsulta != null){
-			query = super.createQuery(jpql, "%'" + nomeClienteConsulta + "'%");
+		String jpql = "From Cliente c where c.nome like " + "'%" + nomeClienteConsulta + "%'";
+
+		if (nomeClienteConsulta != null) {
+			query = getEntityManager().createQuery(jpql);
+		} else {
+			query = getEntityManager().createQuery("From Cliente");
 		}
 		return query.getResultList();
 	}
-	
+
 }

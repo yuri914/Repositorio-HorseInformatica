@@ -33,7 +33,8 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 	}
 
 	public List<Cliente> findClienteByName(String nomeClienteConsulta) {
-		return ((IDaoCliente) getDao()).findClienteByNameDatabase(nomeClienteConsulta);
+		
+		return  ((IDaoCliente) getDao()).findClienteByNameDatabase(nomeClienteConsulta);
 	}
 	
 	
