@@ -16,16 +16,7 @@ public class AcessoriosPage extends BasePage {
 	private ServiceProduto serviceProduto;
 	public AcessoriosPage(){
 		
-		produtosPanel = new ProdutoPanel("produtosPanel"){
-
-			private static final long serialVersionUID = -2010160888899632424L;
-
-			@Override
-			protected byte[] buscarImagem(String caminhoImagem) {
-				return buscarImagemDiretorio(caminhoImagem);
-			}
-			
-		};
+		produtosPanel = new ProdutoPanel("produtosPanel");
 		produtosPanel.getPanelProduto(listarProdutosTipo(3));
 		add(produtosPanel);
 	}

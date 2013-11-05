@@ -1,5 +1,7 @@
 package br.com.horseInformatica.util.enumerations;
 
+import java.util.List;
+
 public enum EnumDDD {
 
 	SAO_PAULO(11),
@@ -19,4 +21,13 @@ public enum EnumDDD {
 	public Integer getCodigo() {
 		return codigo;
 	}
+	
+	/*public List<Integer> getCodigoLista(){
+		List<Integer> listaCodigos = null;
+		for (EnumDDD itemEnum : EnumDDD.values()) {
+			listaCodigos.add(itemEnum.getCodigo());
+		}
+		return listaCodigos;
+	}
+	*/
 }

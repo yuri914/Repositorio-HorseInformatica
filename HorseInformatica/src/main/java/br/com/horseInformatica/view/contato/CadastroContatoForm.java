@@ -1,6 +1,8 @@
 package br.com.horseInformatica.view.contato;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -29,19 +31,13 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 	private FeedbackPanel feedback;
 	private TextField<String> email;
 	private TextField<String> telefone;
-	private DropDownChoice<EnumDDD> ddd;
+	private DropDownChoice<Integer> ddd;
 	private Contato contato;
-
 	private TextField<Integer> cep;
-
 	private TextField<String> logradouro;
-
 	private TextField<String> bairro;
-
 	private TextField<String> cidade;
-
 	private TextField<String> estado;
-
 	private AjaxButton btConfirmar;
 
 	public CadastroContatoForm(String id, final Cliente cliente) {
@@ -59,10 +55,10 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 		telefone.setModel(new PropertyModel<String>(getContato(), "telefone"));
 		add(telefone);
 
-		ddd = new DropDownChoice<EnumDDD>("ddd");
-		ddd.setChoices(Arrays.asList(EnumDDD.values()));
-		ddd.setModel(new PropertyModel<EnumDDD>(getContato(), "ddd"));
-		ddd.setChoiceRenderer(new ChoiceRenderer<EnumDDD>("codigo"));
+		ddd = new DropDownChoice<Integer>("ddd");
+		List<Integer> listaDdd = new ArrayList<Integer>(Arrays.asList(21, 11, 71, 85, 51, 31));
+		ddd.setChoices(listaDdd);
+		ddd.setModel(new PropertyModel<Integer>(getContato(), "ddd"));
 		add(ddd);
 
 		cep = new TextField<Integer>("cep");
@@ -74,7 +70,7 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				EnderecoTO enderecoCep = AuxiliarService.getEnderecoWebService(cep.getModelObject());
-				if(enderecoCep != null){
+				if (enderecoCep != null) {
 					logradouro.setModel(Model.of(enderecoCep.getLogradouro()));
 					bairro.setModel(Model.of(enderecoCep.getBairro()));
 					estado.setModel(Model.of(enderecoCep.getEstado()));
@@ -116,6 +112,7 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 				getContato().setEndereco(getEndereco());
 				cliente.setContato(getContato());
 				salvarCliente(cliente);
+				getSession().setAttribute("usuarioSessao", cliente);
 				target.appendJavaScript("alert ('Cadastro realizado com sucesso.')");
 				setResponsePage(BasePage.class);
 			}
@@ -154,6 +151,4 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 		return contato;
 	}
 
-	
-	
 }

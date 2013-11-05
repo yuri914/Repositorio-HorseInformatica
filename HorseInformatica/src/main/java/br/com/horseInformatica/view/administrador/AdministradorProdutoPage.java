@@ -1,7 +1,5 @@
 package br.com.horseInformatica.view.administrador;
 
-import java.io.IOException;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -12,7 +10,6 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.web.context.ContextLoader;
 
 import br.com.horseInformatica.model.Produto;
 import br.com.horseInformatica.model.Tipo;
@@ -63,6 +60,7 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 
 			private static final long serialVersionUID = -2741513535364626687L;
 			
+			@SuppressWarnings("serial")
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				getProduto().setImagem(imagemProduto.getFileUpload().getBytes());

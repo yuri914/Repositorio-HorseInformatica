@@ -78,10 +78,6 @@ public class BasePage extends WebPage {
 		
 	}
 	
-	protected byte[] buscarImagemDiretorio(String caminhoImagem) {
-		return serviceProduto.buscarImagem(caminhoImagem);
-	}
-	
 	public void renderHead(IHeaderResponse response) {
 		response.render(CssHeaderItem.forUrl("css/bootstrap.css"));
 	}

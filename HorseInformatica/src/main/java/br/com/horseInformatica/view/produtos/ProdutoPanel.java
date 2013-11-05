@@ -10,11 +10,10 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.request.resource.ByteArrayResource;
-import org.apache.wicket.request.resource.ResourceReference;
 
 import br.com.horseInformatica.model.Produto;
 
-public abstract class ProdutoPanel extends Panel {
+public class ProdutoPanel extends Panel {
 
 	private static final long serialVersionUID = 7889031519398250926L;
 

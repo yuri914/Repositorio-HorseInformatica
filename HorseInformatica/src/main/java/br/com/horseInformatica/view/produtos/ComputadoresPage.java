@@ -19,16 +19,7 @@ public class ComputadoresPage extends BasePage {
 	
 	public ComputadoresPage(){
 		
-		produtosPanel = new ProdutoPanel("produtosPanel"){
-
-			private static final long serialVersionUID = -151896528121416380L;
-
-			@Override
-			protected byte[] buscarImagem(String caminhoImagem) {
-				return buscarImagemDiretorio(caminhoImagem);
-			}
-			
-		};
+		produtosPanel = new ProdutoPanel("produtosPanel");
 		produtosPanel.getPanelProduto(listarProdutosTipo(2));
 		add(produtosPanel);
 	}
