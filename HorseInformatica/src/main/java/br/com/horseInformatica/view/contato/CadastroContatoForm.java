@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -21,8 +20,8 @@ import br.com.horseInformatica.model.Endereco;
 import br.com.horseInformatica.model.Perfil;
 import br.com.horseInformatica.service.AuxiliarService;
 import br.com.horseInformatica.to.EnderecoTO;
-import br.com.horseInformatica.util.enumerations.EnumDDD;
 import br.com.horseInformatica.view.base.BasePage;
+import br.com.horseInformatica.view.index.IndexPage;
 
 public abstract class CadastroContatoForm extends Form<Contato> {
 
@@ -105,16 +104,20 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				getEndereco().setLogradouro(logradouro.getModelObject());
-				getEndereco().setBairro(bairro.getModelObject());
-				getEndereco().setCidade(cidade.getModelObject());
-				getEndereco().setEstado(estado.getModelObject());
-				getContato().setEndereco(getEndereco());
-				cliente.setContato(getContato());
-				salvarCliente(cliente);
-				getSession().setAttribute("usuarioSessao", cliente);
-				target.appendJavaScript("alert ('Cadastro realizado com sucesso.')");
-				setResponsePage(BasePage.class);
+				if (validarCampos()){
+					getEndereco().setLogradouro(logradouro.getModelObject());
+					getEndereco().setBairro(bairro.getModelObject());
+					getEndereco().setCidade(cidade.getModelObject());
+					getEndereco().setEstado(estado.getModelObject());
+					getContato().setEndereco(getEndereco());
+					cliente.setContato(getContato());
+					salvarCliente(cliente);
+					getSession().setAttribute("clienteSessao", cliente);
+					setResponsePage(IndexPage.class);
+				} else {
+					error("Preencha todos os campos.");
+					target.add(feedback);
+				}
 			}
 
 			@Override
@@ -125,6 +128,19 @@ public abstract class CadastroContatoForm extends Form<Contato> {
 
 		};
 		add(btConfirmar);
+	}
+
+	protected boolean validarCampos() {
+		boolean isValido = true;
+		isValido &= String.valueOf(cep.getValue()).trim().length() > 0;
+		isValido &= logradouro.getValue().trim().length() > 0;
+		isValido &= bairro.getValue().trim().length() > 0;
+		isValido &= email.getValue().trim().length() > 0;
+		isValido &= telefone.getValue().trim().length() > 0;
+		isValido &= String.valueOf(ddd.getValue()).trim().length() > 0; 
+		isValido &= estado.getValue().trim().length() > 0;
+		isValido &= cidade.getValue().trim().length() > 0;
+		return isValido;
 	}
 
 	protected abstract void salvarContato(Contato contato);

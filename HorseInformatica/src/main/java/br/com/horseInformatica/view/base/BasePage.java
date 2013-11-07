@@ -81,5 +81,4 @@ public class BasePage extends WebPage {
 	public void renderHead(IHeaderResponse response) {
 		response.render(CssHeaderItem.forUrl("css/bootstrap.css"));
 	}
-	
 }
