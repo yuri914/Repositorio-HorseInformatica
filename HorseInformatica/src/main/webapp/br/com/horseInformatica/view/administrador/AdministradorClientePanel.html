@@ -5,6 +5,7 @@
 			<th>Cpf</th>
 			<th>Perfil</th>
 			<th>Telefone</th>
+			<th>Ações</th>
 		</thead>
 		<tbody>
 			<tr wicket:id="clientes">
@@ -12,9 +13,12 @@
 				<td><span wicket:id="cpf"></span></td>
 				<td><span wicket:id="perfil"></span></td>
 				<td><span wicket:id="telefone"></span></td>
+				<td>
+					<a wicket:id="excluir">Excluir</a>
+				</td>
 				</tr>
 		</tbody>
 	</table>
-	<div wicket:id="paginacao">
+	<div align="center" wicket:id="paginacao">
 		</div>
 </wicket:panel>

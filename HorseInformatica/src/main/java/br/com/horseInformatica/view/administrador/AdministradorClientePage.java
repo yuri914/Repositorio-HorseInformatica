@@ -28,6 +28,11 @@ public class AdministradorClientePage extends AdministradorPage {
 			protected List<Cliente> buscarClienteFiltro(String nomeClienteConsulta) {
 				return serviceCliente.findClienteByName(nomeClienteConsulta);
 			}
+
+			@Override
+			protected void excluirCliente(Cliente clienteAtual) {
+				serviceCliente.delete(clienteAtual.getId());
+			}
 			
 		});
 	}

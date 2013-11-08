@@ -65,8 +65,7 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				getProduto().setImagem(imagemProduto.getFileUpload().getBytes());
 				serviceProduto.persist(getProduto());
-				setResponsePage(new AdministradorProdutoPage() {
-				});
+				setResponsePage(new AdministradorProdutoPage() {});
 				target.appendJavaScript("alert('Produto cadastrado com sucesso.')");
 				target.add(feedback, form);
 			}
@@ -87,5 +86,4 @@ public abstract class AdministradorProdutoPage extends AdministradorPage {
 		}
 		return produto;
 	}
-	
 }

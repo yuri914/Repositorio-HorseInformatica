@@ -16,8 +16,8 @@ public abstract class GenericoService<T> {
 		getDao().update(object);
 	}
 
-	public void delete(T object) {
-		getDao().delete(object);
+	public void delete(Integer id) {
+		getDao().delete(id);
 	}
 
 	public T find(Integer id) {

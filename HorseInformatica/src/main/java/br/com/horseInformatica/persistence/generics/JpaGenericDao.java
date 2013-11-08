@@ -61,14 +61,13 @@ public class JpaGenericDao <T> implements GenericDao <T> {
 
 	@Override
 	@Transactional
-	public void delete(Object object) {
-		
+	public void delete(Integer id) {
+		this.getEntityManager().remove(this.getEntityManager().getReference(getPersistenceClass(), id));
 	}
 
 	@Override
 	public T find(Integer id) {
-		
-		return null;
+		return getEntityManager().find(persistenceClass, id);
 	}
 
 	@SuppressWarnings("unchecked")

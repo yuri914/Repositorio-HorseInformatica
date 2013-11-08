@@ -1,6 +1,5 @@
 package br.com.horseInformatica.util.enumerations;
 
-import java.util.List;
 
 public enum EnumDDD {
 

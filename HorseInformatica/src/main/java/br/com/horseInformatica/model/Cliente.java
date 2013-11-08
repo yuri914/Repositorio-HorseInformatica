@@ -150,4 +150,14 @@ public class Cliente implements Serializable {
 	public void setSexo(EnumSexo sexo) {
 		this.sexo = sexo;
 	}
+	
+	@Transient
+	public String getPerfilDescricao(){
+		return getPerfil().getNome();
+	}
+	
+	public Integer getTelefoneCliente(){
+		return getContato().getTelefone();
+	}
+	
 }

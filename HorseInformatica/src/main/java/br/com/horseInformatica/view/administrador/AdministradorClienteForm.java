@@ -2,14 +2,18 @@ package br.com.horseInformatica.view.administrador;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
 import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.util.relatorios.RelatorioFactory;
 
 public abstract class AdministradorClienteForm extends Form<Cliente> {
 
@@ -17,12 +21,10 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 
 	private AdministradorClientePanel panelCliente;
 	private FeedbackPanel feedback;
-
 	private AjaxButton btConsultar;
-
 	private TextField<String> nomeCliente;
+	private Button btRelatorio;
 
-	
 	public AdministradorClienteForm(String id) {
 		super(id);
 		
@@ -34,8 +36,19 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 		nomeCliente.setModel(new Model<String>());
 		add(nomeCliente);
 		
-		panelCliente = new AdministradorClientePanel("panelClientes");
-		panelCliente.getGridCliente(buscarListaCliente());
+		panelCliente = new AdministradorClientePanel("panelClientes"){
+
+			private static final long serialVersionUID = 315182770665539622L;
+
+			@Override
+			protected void excluirCliente(Cliente clienteAtual, AjaxRequestTarget target) {
+				AdministradorClienteForm.this.excluirCliente(clienteAtual);
+				panelCliente.setGridCliente(buscarListaCliente());
+				target.add(panelCliente);
+			}
+
+		};
+		panelCliente.setGridCliente(buscarListaCliente());
 		panelCliente.setOutputMarkupId(true);
 		add(panelCliente);
 		
@@ -47,7 +60,7 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				List<Cliente> listaClienteFiltrado = buscarClienteFiltro(nomeCliente.getModelObject());
 				if (listaClienteFiltrado.size() != 0){
-					panelCliente.getGridCliente(listaClienteFiltrado);
+					panelCliente.setGridCliente(listaClienteFiltrado);
 				} else {
 					error("Nenhum cliente encontrado com o nome informado.");
 				}
@@ -55,10 +68,24 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 			}
 		};
 		add(btConsultar);
+		
+		btRelatorio = new Button("btRelatorio"){
+			
+			private static final long serialVersionUID = 982871553366907236L;
+
+			@Override
+			public void onSubmit() {
+				String relatorioURL = "C:\\Users\\yuri88\\git\\Repositorio-HorseInformatica\\HorseInformatica\\src\\main\\java\\br\\com\\horseInformatica\\util\\relatorios\\RelatorioClienteHorseInfo.jasper";
+				String pdfFileName = "Relatorio";
+				RelatorioFactory.gerarRelatorio((HttpServletResponse) getResponse().getContainerResponse(), buscarListaCliente(), relatorioURL, null, pdfFileName);
+			}
+		};
+		add(btRelatorio);
 	}
 
-
 	protected abstract List<Cliente> buscarClienteFiltro(String nomeClienteConsulta);
+
+	protected abstract void excluirCliente(Cliente clienteAtual);
 
 	protected abstract List<Cliente> buscarListaCliente();
 
