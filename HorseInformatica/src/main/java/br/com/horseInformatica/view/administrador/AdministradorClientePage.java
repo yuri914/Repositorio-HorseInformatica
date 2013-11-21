@@ -7,7 +7,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.ServiceCliente;
 
-public class AdministradorClientePage extends AdministradorPage {
+public class AdministradorClientePage extends AdministradorBasePage {
 
 	private static final long serialVersionUID = -5732317569309869221L;
 	

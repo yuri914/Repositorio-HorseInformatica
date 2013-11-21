@@ -11,6 +11,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.ServiceProduto;
+import br.com.horseInformatica.view.index.IndexPage;
 import br.com.horseInformatica.view.main.HomePage;
 import br.com.horseInformatica.view.produtos.AcessoriosPage;
 import br.com.horseInformatica.view.produtos.ComputadoresPage;
@@ -31,6 +32,17 @@ public class BasePage extends WebPage {
 		saudacao = new Label("saudacaoCliente");
 		saudacao.setDefaultModel(Model.of("Bem vindo, " + clienteSessao.getNome()));
 		add(saudacao);
+		
+		add(new AjaxLink<Void>("homeCliente"){
+
+			private static final long serialVersionUID = 4135895316768093975L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				setResponsePage(IndexPage.class);
+			}
+			
+		});
 		
 		add(new AjaxLink<Void>("smartphones"){
 

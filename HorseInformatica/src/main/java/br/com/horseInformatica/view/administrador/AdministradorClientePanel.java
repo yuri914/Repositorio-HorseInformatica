@@ -2,8 +2,9 @@ package br.com.horseInformatica.view.administrador;
 
 import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -28,7 +29,7 @@ public abstract class AdministradorClientePanel extends Panel
          {
 
             private static final long serialVersionUID = 5863600565352946239L;
-            private AjaxLink<Void> linkExcluir;
+            private AjaxButton btExcluir;
 
             @Override
             protected void populateItem(Item<Cliente> item)
@@ -39,19 +40,18 @@ public abstract class AdministradorClientePanel extends Panel
                item.add(new Label("perfil", clienteAtual.getPerfil().getNome()));
                item.add(new Label("telefone", clienteAtual.getContato().getTelefone()));
 
-               linkExcluir = new AjaxLink<Void>("excluir")
+               btExcluir = new AjaxButton("excluir")
                {
 
-                  private static final long serialVersionUID = -8271016182709230286L;
+                  private static final long serialVersionUID = -5362341631320267779L;
 
                   @Override
-                  public void onClick(AjaxRequestTarget target)
+                  protected void onSubmit(AjaxRequestTarget target, Form<?> form)
                   {
                      excluirCliente(clienteAtual, target);
                   }
-
                };
-               item.add(linkExcluir);
+               item.add(btExcluir);
             }
          };
       addOrReplace(new PagingNavigator("paginacao", repetidor));

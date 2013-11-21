@@ -16,7 +16,7 @@ import br.com.horseInformatica.model.Tipo;
 import br.com.horseInformatica.service.ServiceProduto;
 import br.com.horseInformatica.service.ServiceTipo;
 
-public abstract class AdministradorProdutoPage extends AdministradorPage {
+public abstract class AdministradorProdutoPage extends AdministradorBasePage {
 
 	private static final long serialVersionUID = -7797751310797545122L;
 	
