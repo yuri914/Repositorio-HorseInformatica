@@ -19,7 +19,7 @@ import org.apache.wicket.model.PropertyModel;
 
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
-import br.com.horseInformatica.view.administrador.AdministradorPage;
+import br.com.horseInformatica.view.administrador.AdministradorBasePage;
 import br.com.horseInformatica.view.base.BasePage;
 import br.com.horseInformatica.view.contato.CadastroContatoPage;
 
@@ -96,7 +96,7 @@ public abstract class HomeForm extends Form<Cliente> {
 					if (clienteEncontrado != null) {
 						getSession().setAttribute("clienteSessao", clienteEncontrado);
 						if (clienteEncontrado.getLogin().equals("admin")) {
-							setResponsePage(AdministradorPage.class);
+							setResponsePage(AdministradorBasePage.class);
 						} else {
 							setResponsePage(BasePage.class);
 						}
