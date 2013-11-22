@@ -1,7 +1,6 @@
 package br.com.horseInformatica.view.administrador;
 
 import java.util.List;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -14,12 +13,12 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.PropertyModel;
-
 import br.com.horseInformatica.model.Cliente;
 
-public abstract class AdministradorClientePanel extends Panel {
+public abstract class AdministradorClientePanel extends Panel
+{
 
-	private static final long serialVersionUID = -8023850191678212745L;
+   private static final long serialVersionUID = -8023850191678212745L;
 
 	private List<Cliente> listaItensExclusao;
 	
@@ -28,11 +27,14 @@ public abstract class AdministradorClientePanel extends Panel {
 		
 	}
 
-	public void setGridCliente(List<Cliente> listaClientes){
-		DataView<Cliente> repetidor = new DataView<Cliente>("clientes", new ListDataProvider<Cliente>(listaClientes),10){
+   public void setGridCliente(List<Cliente> listaClientes)
+   {
+      DataView<Cliente> repetidor =
+         new DataView<Cliente>("clientes", new ListDataProvider<Cliente>(listaClientes), 10)
+         {
 
-			private static final long serialVersionUID = 5863600565352946239L;
-			private AjaxButton btExcluir;
+            private static final long serialVersionUID = 5863600565352946239L;
+            private AjaxButton btExcluir;
 
 			@Override
 			protected void populateItem(Item<Cliente> item) {
@@ -83,5 +85,5 @@ public abstract class AdministradorClientePanel extends Panel {
 	}
 
 	protected abstract void excluirCliente(Cliente clienteAtual, AjaxRequestTarget target);
-	
+
 }
