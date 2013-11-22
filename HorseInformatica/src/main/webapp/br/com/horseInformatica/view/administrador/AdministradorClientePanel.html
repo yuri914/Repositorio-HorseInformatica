@@ -1,24 +1,24 @@
 <wicket:panel>
 	<table class="table table-striped">
 		<thead>
-			<th>Nome</th>
-			<th>Cpf</th>
-			<th>Perfil</th>
-			<th>Telefone</th>
-			<th>Ações</th>
+			<th class="centralizarTexto">Nome</th>
+			<th class="centralizarTexto">Cpf</th>
+			<th class="centralizarTexto">Perfil</th>
+			<th class="centralizarTexto">Telefone</th>
+			<th class="centralizarTexto">Ações</th>
+			<th class="centralizarTexto">Selecionar</th>
 		</thead>
 		<tbody>
 			<tr wicket:id="clientes">
-				<td><span wicket:id="nome"></span></td>
-				<td><span wicket:id="cpf"></span></td>
-				<td><span wicket:id="perfil"></span></td>
-				<td><span wicket:id="telefone"></span></td>
-				<td>
-					<button class="btn btn-small btn btn-danger" wicket:id="excluir">Excluir</button>
-				</td>
+				<td class="centralizarTexto"><span wicket:id="nome"></span></td>
+				<td class="centralizarTexto"><span wicket:id="cpf"></span></td>
+				<td class="centralizarTexto"><span wicket:id="perfil"></span></td>
+				<td class="centralizarTexto"><span wicket:id="telefone"></span></td>
+				<td class="centralizarTexto"><button class="btn btn-small btn btn-danger" wicket:id="excluir">Excluir</button></td>
+				<td class="centralizarTexto"><input type="checkbox" wicket:id="selecionar"/></td>
 				</tr>
 		</tbody>
 	</table>
-	<div align="center" wicket:id="paginacao">
-		</div>
+		<div align="center" wicket:id="paginacao">
+	</div>
 </wicket:panel>

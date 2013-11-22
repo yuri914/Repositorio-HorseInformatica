@@ -3,15 +3,17 @@ package br.com.horseInformatica.view.administrador;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.PropertyModel;
 
 import br.com.horseInformatica.model.Cliente;
 
@@ -19,6 +21,8 @@ public abstract class AdministradorClientePanel extends Panel {
 
 	private static final long serialVersionUID = -8023850191678212745L;
 
+	private List<Cliente> listaItensExclusao;
+	
 	public AdministradorClientePanel(String id) {
 		super(id);
 		
@@ -36,6 +40,7 @@ public abstract class AdministradorClientePanel extends Panel {
 				item.add(new Label("nome", clienteAtual.getNome()));
 				item.add(new Label("cpf", clienteAtual.getCpf()));
 				item.add(new Label("perfil", clienteAtual.getPerfil().getNome()));
+				item.add(criarCheckBox(item));
 				item.add(new Label("telefone", clienteAtual.getContato().getTelefone()));
 				
 				btExcluir = new AjaxButton("excluir") {
@@ -54,6 +59,29 @@ public abstract class AdministradorClientePanel extends Panel {
 		addOrReplace(repetidor);
 	}
 	
+	protected CheckBox criarCheckBox(final Item<Cliente> item) {
+		CheckBox checkBox = new CheckBox("selecionar", new PropertyModel<Boolean>(item.getModelObject(), "checkSelecionada"));
+		checkBox.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			
+			private static final long serialVersionUID = -7706675257121904200L;
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				listaItensExclusao.add(item.getModelObject());
+			}
+			
+			@Override
+			protected void onError(AjaxRequestTarget target, RuntimeException e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		return checkBox;
+	}
+
+	public List<Cliente> getListaItensExclusao() {
+		return listaItensExclusao;
+	}
+
 	protected abstract void excluirCliente(Cliente clienteAtual, AjaxRequestTarget target);
 	
 }

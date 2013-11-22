@@ -63,6 +63,9 @@ public class Cliente implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
 
+	@Transient
+	private Boolean checkSelecionada;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -159,5 +162,14 @@ public class Cliente implements Serializable {
 	public Integer getTelefoneCliente(){
 		return getContato().getTelefone();
 	}
+
+	public Boolean getCheckSelecionada() {
+		return checkSelecionada;
+	}
+
+	public void setCheckSelecionada(Boolean checkSelecionada) {
+		this.checkSelecionada = checkSelecionada;
+	}
+	
 	
 }
