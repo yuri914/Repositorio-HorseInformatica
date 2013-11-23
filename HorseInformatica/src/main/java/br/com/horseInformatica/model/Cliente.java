@@ -1,6 +1,7 @@
 package br.com.horseInformatica.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -154,11 +155,6 @@ public class Cliente implements Serializable {
 		this.sexo = sexo;
 	}
 	
-	@Transient
-	public String getPerfilDescricao(){
-		return getPerfil().getNome();
-	}
-	
 	public Integer getTelefoneCliente(){
 		return getContato().getTelefone();
 	}
@@ -171,5 +167,57 @@ public class Cliente implements Serializable {
 		this.checkSelecionada = checkSelecionada;
 	}
 	
+	@Transient
+	public Integer getIdade(){
+		  Date dataHoje = new Date();    
+	      Calendar cal = Calendar.getInstance();    
+	          
+	      cal.setTime(dataHoje);    
+	      int day1 = cal.get(Calendar.DAY_OF_YEAR);    
+	      int ano1 = cal.get(Calendar.YEAR);    
+	          
+	      cal.setTime(getDataNascimento());    
+	      int day2 = cal.get(Calendar.DAY_OF_YEAR);    
+	      int ano2 = cal.get(Calendar.YEAR);    
+	          
+	      int idade = ano1 - ano2;    
+	          
+	      if(day1 < day2)    
+	         idade--;  
+	             
+	      return idade;    
+	}
 	
+	@Transient
+	public String getTempoCliente() {
+		  Date dataHoje = new Date();    
+	      Calendar cal = Calendar.getInstance();
+	      String tempoDeCadastro = null;
+	          
+	      cal.setTime(dataHoje);    
+	      int day1 = cal.get(Calendar.DAY_OF_YEAR);    
+	      int ano1 = cal.get(Calendar.YEAR);    
+	          
+	      cal.setTime(getDataCadastro());    
+	      int day2 = cal.get(Calendar.DAY_OF_YEAR);    
+	      int ano2 = cal.get(Calendar.YEAR);    
+	          
+	      int anosDeCadastro = ano1 - ano2;
+	      int diasDeCliente = day1 - day2;
+	        
+	      if(anosDeCadastro < 1){
+	    	  
+	    	  if((day1 - day2) > 30){
+	    		  tempoDeCadastro = diasDeCliente / 30 + " meses";
+	    	  }else{
+	    		  tempoDeCadastro = diasDeCliente + " dias";
+	    	  }
+	    	  
+	      }else {
+	    	  tempoDeCadastro = anosDeCadastro + " anos";
+	      }
+	    	  
+	    	  
+	      return tempoDeCadastro;  
+	}
 }

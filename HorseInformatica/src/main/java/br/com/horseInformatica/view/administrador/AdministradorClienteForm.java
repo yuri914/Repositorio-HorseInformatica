@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -25,6 +26,8 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 	private AjaxButton btConsultar;
 	private TextField<String> nomeCliente;
 	private Button btRelatorio;
+
+	private ModalWindow modalDetail;
 
 	public AdministradorClienteForm(String id) {
 		super(id);
@@ -48,10 +51,20 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 				target.add(panelCliente);
 			}
 
+			@Override
+			protected void exibirDetalhesCliente(Cliente clienteAtual, AjaxRequestTarget target) {
+				modalDetail.setContent(new ModalDetailPanel(modalDetail.getContentId(), clienteAtual));
+				modalDetail.show(target);
+			}
 		};
 		panelCliente.setGridCliente(buscarListaCliente());
 		panelCliente.setOutputMarkupId(true);
 		add(panelCliente);
+		
+		modalDetail = new ModalWindow("modalDetalhes");
+		modalDetail.setInitialWidth(400);
+		modalDetail.setInitialHeight(400);
+		add(modalDetail);
 		
 		btConsultar = new AjaxButton("consultar"){
 			
