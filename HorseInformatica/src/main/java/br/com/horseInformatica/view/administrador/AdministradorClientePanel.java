@@ -36,7 +36,8 @@ public abstract class AdministradorClientePanel extends Panel
             private static final long serialVersionUID = 5863600565352946239L;
             private AjaxButton btExcluir;
 			private AjaxButton btDetalhes;
-
+			private AjaxButton btAtualizar;
+			
 			@Override
 			protected void populateItem(Item<Cliente> item) {
 				final Cliente clienteAtual = item.getModelObject();
@@ -68,6 +69,17 @@ public abstract class AdministradorClientePanel extends Panel
 					
 				};
 				item.add(btDetalhes);
+				
+				btAtualizar = new AjaxButton("atualizar") {
+
+					private static final long serialVersionUID = 2235846779070299318L;
+					
+					@Override
+					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+						atualizarCliente(clienteAtual, target);
+					}
+				};
+				item.add(btAtualizar);
 			}
 		};
 		addOrReplace(new PagingNavigator("paginacao", repetidor));
@@ -99,4 +111,7 @@ public abstract class AdministradorClientePanel extends Panel
 
 	protected abstract void excluirCliente(Cliente clienteAtual, AjaxRequestTarget target);
 	protected abstract void exibirDetalhesCliente(Cliente clienteAtual, AjaxRequestTarget target);
+	protected abstract void atualizarCliente(Cliente clienteAtual, AjaxRequestTarget target);
+
+
 }

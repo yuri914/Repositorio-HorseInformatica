@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>Horse Informática</title>
+<link href="bootstrap.css" rel="stylesheet">
+</head>
+
+<body background="img/bg-horseInfo.png">
+
+	<form class="form-inline" wicket:id="formularioAtualizar">
+		<fieldset>
+
+			<!-- Form Name -->
+			<legend>Atualizar clientes</legend>
+			<label wicket:id="mensagem"></label>
+
+	<div id="divFormRegister" class="container-fluid form-horizontal">
+
+			<!-- Select Basic -->
+			<div class="control-group">
+				<label class="control-label" for="atualizar">Atualizar</label>
+				<div class="controls">
+					<select id="atualizar" name="atualizar" class="input-large">
+						<option>Dados pessoais</option>
+						<option>Contato</option>
+						<option>Endereco</option>
+					</select>
+				</div>
+			</div>
+
+			<fieldset>
+				<legend>Dados Pessoais</legend>
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="nome">Nome: </label>
+					<div class="controls">
+						<input wicket:id="nome" name="nome" type="text"
+							placeholder="Digite seu nome" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Multiple Radios -->
+				<div class="control-group">
+					<label class="control-label" wicket:for="genero">Genero</label>
+					<div class="controls" wicket:id="genero"></div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="dataNascimento">Nascimento:</label>
+					<div class="controls">
+						<input id="inputNasc" maxlength="10" wicket:id="dataNascimento"
+							type="text" />
+					</div>
+				</div>
+
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="cpf">CPF:</label>
+					<div class="controls">
+						<input wicket:id="cpf" name="cpf" type="text"
+							placeholder="Digite seu cpf" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="rg">RG: </label>
+					<div class="controls">
+						<input wicket:id="rg" name="rg" type="text"
+							placeholder="Digite seu rg" class="input-large">
+
+					</div>
+				</div>
+
+			</fieldset>
+
+			<fieldset>
+				<legend>Contato</legend>
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="telefone">Telefone:</label>
+					<div class="controls">
+						<input wicket:id="telefone" name="telefone" type="text"
+							placeholder="Digite seu telefone" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="ddd">DDD:</label>
+					<div class="controls">
+						<input wicket:id="ddd" name="ddd" type="text"
+							placeholder="Digite seu ddd" class="input-large">
+
+					</div>
+				</div>
+
+<!-- Select Basic -->
+<!-- <div class="control-group">
+  <label class="control-label" for="ddd">DDD:</label>
+  <div class="controls">
+    <select id="ddd" name="ddd" class="input-large">
+    </select>
+  </div>
+</div> -->
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="email">Email:</label>
+					<div class="controls">
+						<input wicket:id="email" name="email" type="text"
+							placeholder="Digite seu email" class="input-large">
+
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Endereço</legend>
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="cep">Cep: </label>
+					<div class="controls">
+						<input wicket:id="cep" name="cep" type="text"
+							placeholder="Digite seu cep" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="logradouro">Logradouro:</label>
+					<div class="controls">
+						<input wicket:id="logradouro" name="logradouro" type="text"
+							placeholder="Digite seu logradouro" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="bairro">Bairro</label>
+					<div class="controls">
+						<input wicket:id="bairro" name="bairro" type="text"
+							placeholder="Digite seu bairro" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="estado">Estado: </label>
+					<div class="controls">
+						<input wicket:id="estado" name="estado" type="text"
+							placeholder="Digite seu estado" class="input-large">
+
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="control-group">
+					<label class="control-label" wicket:for="cidade">Cidade:</label>
+					<div class="controls">
+						<input wicket:id="cidade" name="cidade" type="text"
+							placeholder="Digite sua cidade" class="input-large">
+
+					</div>
+				</div>
+			</fieldset>
+
+			<!-- Button -->
+			<div class="control-group">
+				<label class="control-label" wicket:for="confirmar"></label>
+				<div class="controls">
+					<button wicket:id="confirmar" name="confirmar"
+						class="btn btn-primary">Confirmar</button>
+				</div>
+			</div>
+
+</div>
+		</fieldset>
+	</form>
+	
+</body>
+</html>

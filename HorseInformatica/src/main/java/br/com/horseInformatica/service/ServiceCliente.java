@@ -36,6 +36,12 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
 		
 		return  ((IDaoCliente) getDao()).findClienteByNameDatabase(nomeClienteConsulta);
 	}
+
+	public void atualizar(Cliente cliente) {
+
+		getDao().update(cliente);
+		
+	}
 	
 	
 }
