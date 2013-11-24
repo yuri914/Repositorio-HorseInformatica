@@ -2,7 +2,6 @@ package br.com.horseInformatica.view.administrador;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -21,6 +20,8 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 
 	private static final long serialVersionUID = -5228865222034777465L;
 
+	private final static String CAMINHO_JASPER = "C:\\Users\\yuri88\\git\\Repositorio-HorseInformatica\\HorseInformatica\\src\\main\\java\\br\\com\\horseInformatica\\util\\relatorios\\RelatorioClienteHorseInfo.jasper";
+	
 	private AdministradorClientePanel panelCliente;
 	private FeedbackPanel feedback;
 	private AjaxButton btConsultar;
@@ -89,9 +90,7 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 
 			@Override
 			public void onSubmit() {
-				String relatorioURL = "C:\\Users\\yuri88\\git\\Repositorio-HorseInformatica\\HorseInformatica\\src\\main\\java\\br\\com\\horseInformatica\\util\\relatorios\\RelatorioClienteHorseInfo.jasper";
-				HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
-				String test = req.getServletPath();
+				String relatorioURL = CAMINHO_JASPER;
 				String pdfFileName = "Relatorio";
 				RelatorioFactory.gerarRelatorio((HttpServletResponse) getResponse().getContainerResponse(), buscarListaCliente(), relatorioURL, null, pdfFileName);
 			}
