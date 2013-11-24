@@ -33,6 +33,12 @@ public class AdministradorClientePage extends AdministradorBasePage {
 			protected void excluirCliente(Cliente clienteAtual) {
 				serviceCliente.delete(clienteAtual.getId());
 			}
+
+			@Override
+			protected void atualizaCliente(Cliente clienteAtual) {
+				serviceCliente.persist(clienteAtual);
+				
+			}
 			
 		});
 	}

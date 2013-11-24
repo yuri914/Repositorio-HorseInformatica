@@ -33,9 +33,14 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 	public AdministradorClienteForm(String id) {
 		super(id);
 		
+		
 		feedback = new FeedbackPanel("mensages");
 		feedback.setOutputMarkupId(true);
 		add(feedback);
+	/*	if(null != mensagem){
+			success(mensagem);
+		}*/
+
 		
 		nomeCliente = new TextField<String>("nomeCliente");
 		nomeCliente.setModel(new Model<String>());
@@ -56,6 +61,15 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 			protected void exibirDetalhesCliente(Cliente clienteAtual, AjaxRequestTarget target) {
 				modalDetail.setContent(new ModalDetailPanel(modalDetail.getContentId(), clienteAtual));
 				modalDetail.show(target);
+			}
+
+			@Override
+			protected void atualizarCliente(Cliente clienteAtual, AjaxRequestTarget target) {
+				setResponsePage(new AdministradorAtualizaClientePage(clienteAtual));
+				/*AdministradorClienteForm.this.atualizaCliente(clienteAtual);
+				panelCliente.setGridCliente(buscarListaCliente());
+				target.add(panelCliente);*/
+				
 			}
 		};
 		panelCliente.setGridCliente(buscarListaCliente());
@@ -97,6 +111,8 @@ public abstract class AdministradorClienteForm extends Form<Cliente> {
 		};
 		add(btRelatorio);
 	}
+
+	protected abstract void atualizaCliente(Cliente clienteAtual);
 
 	protected abstract List<Cliente> buscarClienteFiltro(String nomeClienteConsulta);
 
