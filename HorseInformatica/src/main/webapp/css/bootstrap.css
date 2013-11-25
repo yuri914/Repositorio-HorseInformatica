@@ -14,6 +14,14 @@ a:hover {
 	text-decoration: none;
 }
 
+.centralizarTexto{
+	text-align: center !important;
+}
+
+.PaddingUmSextoADireita{
+	padding-left: 122px;
+}
+
 #divLoginSystem {
 	margin-top: 10px;
 	padding-right: 10px;

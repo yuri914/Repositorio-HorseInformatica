@@ -10,4 +10,5 @@ public interface GenericDao <T> {
 	public T find(Integer id);
 	public List<T> findAll();
 	
+	
 }
