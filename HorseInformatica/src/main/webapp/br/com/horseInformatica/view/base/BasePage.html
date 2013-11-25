@@ -5,6 +5,7 @@
 <title>Horse Informática</title>
 <link href="bootstrap.css" rel="stylesheet">
 
+
 </head>
 <body background="img/bg-horseInfo.png">
 	<div class="navbar navbar-inverse">
@@ -18,8 +19,18 @@
 			</ul>
 			<ul class="nav">
 				<li><a wicket:id="saudacaoCliente"></a></li>
-				<li><a wicket:id="sair">Sair</a></li>
 			</ul>
+			
+			 <div class="btn-group">
+                <a class="btn-small btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+                    Ação <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a wicket:id="atualizar">Configurações da conta</a></li>              
+                    <li><a wicket:id="sair">Sair</a></li>
+                    <!-- Links de menu dropdown -->
+                </ul>
+            </div>
 		</div>
 	</div>
 	<wicket:child/>
