@@ -7,6 +7,8 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -15,13 +17,14 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.PropertyModel;
 import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.model.Perfil;
 
 public abstract class AdministradorClientePanel extends Panel
 {
 
    private static final long serialVersionUID = -8023850191678212745L;
 
-   private final List<Cliente> listaItensExclusao = new ArrayList<Cliente>();
+   private final List<Cliente> listaItens = new ArrayList<Cliente>();
 
    public AdministradorClientePanel(String id)
    {
@@ -46,7 +49,7 @@ public abstract class AdministradorClientePanel extends Panel
                final Cliente clienteAtual = item.getModelObject();
                item.add(new Label("nome", clienteAtual.getNome()));
                item.add(new Label("cpf", clienteAtual.getCpf()));
-               item.add(new Label("perfil", clienteAtual.getPerfil().getNome()));
+               item.add(criarDropDown("perfil", clienteAtual));
                item.add(criarCheckBox(item));
                item.add(new Label("telefone", clienteAtual.getContato().getTelefone()));
 
@@ -60,7 +63,7 @@ public abstract class AdministradorClientePanel extends Panel
                   {
                      if (clienteAtual.getCheckSelecionada())
                      {
-                        excluirListaClientes(listaItensExclusao);
+                        excluirListaClientes(listaItens);
                      }
                      excluirCliente(clienteAtual, target);
                   }
@@ -89,7 +92,14 @@ public abstract class AdministradorClientePanel extends Panel
                   @Override
                   protected void onSubmit(AjaxRequestTarget target, Form<?> form)
                   {
-                     atualizarCliente(clienteAtual, target);
+                     if (clienteAtual.getCheckSelecionada())
+                     {
+                        atualizarListaCliente(listaItens, target);
+                     }
+                     else
+                     {
+                        atualizarCliente(clienteAtual, target);
+                     }
                   }
                };
                item.add(btAtualizar);
@@ -97,6 +107,15 @@ public abstract class AdministradorClientePanel extends Panel
          };
       addOrReplace(new PagingNavigator("paginacao", repetidor));
       addOrReplace(repetidor);
+   }
+
+   protected DropDownChoice<Perfil> criarDropDown(String id, Cliente cliente)
+   {
+      DropDownChoice<Perfil> dropDown = new DropDownChoice<Perfil>(id);
+      dropDown.setModel(new PropertyModel<Perfil>(cliente.getPerfil(), "nome"));
+      dropDown.setChoices(recuperarListaPerfil());
+      dropDown.setChoiceRenderer(new ChoiceRenderer<Perfil>("nome"));
+      return dropDown;
    }
 
    protected CheckBox criarCheckBox(final Item<Cliente> item)
@@ -112,13 +131,7 @@ public abstract class AdministradorClientePanel extends Panel
          @Override
          protected void onUpdate(AjaxRequestTarget target)
          {
-            listaItensExclusao.add(item.getModelObject());
-         }
-
-         @Override
-         protected void onError(AjaxRequestTarget target, RuntimeException e)
-         {
-            // TODO Auto-generated method stub
+            listaItens.add(item.getModelObject());
          }
       });
       return checkBox;
@@ -126,8 +139,13 @@ public abstract class AdministradorClientePanel extends Panel
 
    public List<Cliente> getListaItensExclusao()
    {
-      return listaItensExclusao;
+      return listaItens;
    }
+
+   protected abstract void atualizarListaCliente(List<Cliente> listaClientes,
+      AjaxRequestTarget target);
+
+   protected abstract List<Perfil> recuperarListaPerfil();
 
    protected abstract void excluirListaClientes(List<Cliente> listaItens);
 

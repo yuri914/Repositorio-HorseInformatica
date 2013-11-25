@@ -55,4 +55,12 @@ public class ServiceCliente extends GenericoService<Cliente> implements Serializ
       }
    }
 
+   public void atualizarListaClientesBanco(List<Cliente> listaItens)
+   {
+      for (Cliente cliente : listaItens)
+      {
+         getDao().update(cliente);
+      }
+   }
+
 }

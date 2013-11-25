@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.model.Perfil;
 import br.com.horseInformatica.util.relatorios.RelatorioFactory;
 
 public abstract class AdministradorClienteForm extends Form<Cliente>
@@ -66,13 +67,29 @@ public abstract class AdministradorClienteForm extends Form<Cliente>
          @Override
          protected void atualizarCliente(Cliente clienteAtual, AjaxRequestTarget target)
          {
-            setResponsePage(new AdministradorAtualizaClientePage(clienteAtual));
+            atualizaCliente(clienteAtual);
+            panelCliente.setGridCliente(buscarListaCliente());
+            target.add(panelCliente);
          }
 
          @Override
          protected void excluirListaClientes(List<Cliente> listaItens)
          {
             AdministradorClienteForm.this.excluirListaClientes(listaItens);
+         }
+
+         @Override
+         protected List<Perfil> recuperarListaPerfil()
+         {
+            return AdministradorClienteForm.this.recuperarListaPerfil();
+         }
+
+         @Override
+         protected void atualizarListaCliente(List<Cliente> listaItens, AjaxRequestTarget target)
+         {
+            AdministradorClienteForm.this.atualizarListaClientes(listaItens);
+            panelCliente.setGridCliente(buscarListaCliente());
+            target.add(panelCliente);
          }
       };
       panelCliente.setGridCliente(buscarListaCliente());
@@ -125,6 +142,10 @@ public abstract class AdministradorClienteForm extends Form<Cliente>
       };
       add(btRelatorio);
    }
+
+   protected abstract void atualizarListaClientes(List<Cliente> listaItens);
+
+   protected abstract List<Perfil> recuperarListaPerfil();
 
    protected abstract void excluirListaClientes(List<Cliente> listaItens);
 

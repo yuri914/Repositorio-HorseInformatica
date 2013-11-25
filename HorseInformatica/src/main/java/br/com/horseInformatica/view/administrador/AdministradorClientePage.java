@@ -3,7 +3,9 @@ package br.com.horseInformatica.view.administrador;
 import java.util.List;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import br.com.horseInformatica.model.Cliente;
+import br.com.horseInformatica.model.Perfil;
 import br.com.horseInformatica.service.ServiceCliente;
+import br.com.horseInformatica.service.ServicePerfil;
 
 public class AdministradorClientePage extends AdministradorBasePage
 {
@@ -12,6 +14,9 @@ public class AdministradorClientePage extends AdministradorBasePage
 
    @SpringBean
    private ServiceCliente serviceCliente;
+
+   @SpringBean
+   private ServicePerfil servicePerfil;
 
    public AdministradorClientePage(String mensagem)
    {
@@ -49,6 +54,18 @@ public class AdministradorClientePage extends AdministradorBasePage
          protected void excluirListaClientes(List<Cliente> listaItens)
          {
             serviceCliente.excluirListaClientesBanco(listaItens);
+         }
+
+         @Override
+         protected List<Perfil> recuperarListaPerfil()
+         {
+            return servicePerfil.recuperarListaPerfilBanco();
+         }
+
+         @Override
+         protected void atualizarListaClientes(List<Cliente> listaItens)
+         {
+            serviceCliente.atualizarListaClientesBanco(listaItens);
          }
 
       });
