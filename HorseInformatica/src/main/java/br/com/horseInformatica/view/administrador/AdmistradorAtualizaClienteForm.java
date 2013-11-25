@@ -2,7 +2,6 @@ package br.com.horseInformatica.view.administrador;
 
 import java.util.Arrays;
 import java.util.Date;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -16,150 +15,148 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.AuxiliarService;
 import br.com.horseInformatica.to.EnderecoTO;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
 
-public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente> {
+public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
+{
 
-	private static final long serialVersionUID = 2535896341184251584L;
+   private static final long serialVersionUID = 2535896341184251584L;
 
-	
-	
-	private FeedbackPanel feedback;
-	
-	//Dados Pessoais
-	private TextField<String> nome;
-	private RadioChoice<EnumSexo> genero;
-	private DateTextField nascimento;
-	private TextField<String> cpf;
-	private TextField<String> rg;
+   private final FeedbackPanel feedback;
 
-	//Contato
-	private TextField<String> email;
-	private TextField<String> telefone;
-	private TextField<Integer> ddd;
-	private TextField<Integer> cep;
-	private TextField<String> logradouro;
-	private TextField<String> bairro;
-	private TextField<String> cidade;
-	private TextField<String> estado;
+   // Dados Pessoais
+   private final TextField<String> nome;
+   private final RadioChoice<EnumSexo> genero;
+   private final DateTextField nascimento;
+   private final TextField<String> cpf;
+   private final TextField<String> rg;
 
+   // Contato
+   private final TextField<String> email;
+   private final TextField<String> telefone;
+   private final TextField<Integer> ddd;
+   private final TextField<Integer> cep;
+   private final TextField<String> logradouro;
+   private final TextField<String> bairro;
+   private final TextField<String> cidade;
+   private final TextField<String> estado;
 
+   private final AjaxButton btConfirmar;
 
-	private AjaxButton btConfirmar;
-	
-	public AdmistradorAtualizaClienteForm(String id, final Cliente cliente) {
-		super(id);
-		
-	
-		feedback = new FeedbackPanel("mensagem");
-		feedback.setOutputMarkupPlaceholderTag(true);
-		add(feedback);
+   public AdmistradorAtualizaClienteForm(String id, final Cliente cliente)
+   {
+      super(id);
 
-		
-		nome = new TextField<String>("nome");
-		nome.setModel(new PropertyModel<String>(cliente, "nome"));
-		add(nome);
+      feedback = new FeedbackPanel("mensagem");
+      feedback.setOutputMarkupPlaceholderTag(true);
+      add(feedback);
 
-		cpf = new TextField<String>("cpf");
-		cpf.setModel(new PropertyModel<String>(cliente, "cpf"));
-		add(cpf);
+      nome = new TextField<String>("nome");
+      nome.setModel(new PropertyModel<String>(cliente, "nome"));
+      add(nome);
 
-		rg = new TextField<String>("rg");
-		rg.setModel(new PropertyModel<String>(cliente, "rg"));
-		add(rg);
+      cpf = new TextField<String>("cpf");
+      cpf.setModel(new PropertyModel<String>(cliente, "cpf"));
+      add(cpf);
 
-		nascimento = new DateTextField("dataNascimento", new PropertyModel<Date>(cliente, "dataNascimento"), new StyleDateConverter("S-", true));
+      rg = new TextField<String>("rg");
+      rg.setModel(new PropertyModel<String>(cliente, "rg"));
+      add(rg);
 
-		DatePicker datePicker = new DatePicker();
-		datePicker.setShowOnFieldClick(true);
-		datePicker.setAutoHide(true);
-		nascimento.add(datePicker);
-		add(nascimento);
+      nascimento =
+         new DateTextField("dataNascimento", new PropertyModel<Date>(cliente, "dataNascimento"),
+            new StyleDateConverter("S-", true));
 
-		genero = new RadioChoice<EnumSexo>("genero");
-		genero.setChoices(Arrays.asList(EnumSexo.values()));
-		genero.setChoiceRenderer(new ChoiceRenderer<EnumSexo>("descricao"));
-		genero.setModel(new PropertyModel<EnumSexo>(cliente, "sexo"));
-		genero.setSuffix("  ");
-		add(genero);
+      DatePicker datePicker = new DatePicker();
+      datePicker.setShowOnFieldClick(true);
+      datePicker.setAutoHide(true);
+      nascimento.add(datePicker);
+      add(nascimento);
 
-		email = new TextField<String>("email");
-		email.setModel(new PropertyModel<String>(cliente.getContato(), "email"));
-		add(email);
+      genero = new RadioChoice<EnumSexo>("genero");
+      genero.setChoices(Arrays.asList(EnumSexo.values()));
+      genero.setChoiceRenderer(new ChoiceRenderer<EnumSexo>("descricao"));
+      genero.setModel(new PropertyModel<EnumSexo>(cliente, "sexo"));
+      genero.setSuffix("  ");
+      add(genero);
 
-		telefone = new TextField<String>("telefone");
-		telefone.setModel(new PropertyModel<String>(cliente.getContato(), "telefone"));
-		add(telefone);
+      email = new TextField<String>("email");
+      email.setModel(new PropertyModel<String>(cliente.getContato(), "email"));
+      add(email);
 
-		/*ddd = new DropDownChoice<Integer>("ddd");
-		List<Integer> listaDdd = new ArrayList<Integer>(Arrays.asList(21, 11, 71, 85, 51, 31));
-		ddd.setChoices(listaDdd);
-		ddd.setModel(new PropertyModel<Integer>(cliente.getContato(), "ddd"));*/
-		
-		ddd = new TextField<Integer>("ddd");
-		ddd.setModel(new PropertyModel<Integer>(cliente.getContato(), "ddd"));
-		add(ddd);
+      telefone = new TextField<String>("telefone");
+      telefone.setModel(new PropertyModel<String>(cliente.getContato(), "telefone"));
+      add(telefone);
 
-		cep = new TextField<Integer>("cep");
-		cep.setModel(new PropertyModel<Integer>(cliente.getContato().getEndereco(), "cep"));
-		cep.add(new AjaxFormComponentUpdatingBehavior("onblur") {
+      ddd = new TextField<Integer>("ddd");
+      ddd.setModel(new PropertyModel<Integer>(cliente.getContato(), "ddd"));
+      add(ddd);
 
-			private static final long serialVersionUID = -1358699233483750529L;
+      cep = new TextField<Integer>("cep");
+      cep.setModel(new PropertyModel<Integer>(cliente.getContato().getEndereco(), "cep"));
+      cep.add(new AjaxFormComponentUpdatingBehavior("onblur")
+      {
 
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				EnderecoTO enderecoCep = AuxiliarService.getEnderecoWebService(cep.getModelObject());
-				if (enderecoCep != null) {
-					logradouro.setModel(Model.of(enderecoCep.getLogradouro()));
-					bairro.setModel(Model.of(enderecoCep.getBairro()));
-					estado.setModel(Model.of(enderecoCep.getEstado()));
-					cidade.setModel(Model.of(enderecoCep.getCidade()));
-				} else {
-					error("Cep não encontrado.");
-				}
-				target.add(logradouro, bairro, estado, cidade, feedback);
-			}
-		});
-		add(cep);
+         private static final long serialVersionUID = -1358699233483750529L;
 
-		logradouro = new TextField<String>("logradouro");
-		logradouro.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "logradouro"));
-		add(logradouro);
+         @Override
+         protected void onUpdate(AjaxRequestTarget target)
+         {
+            EnderecoTO enderecoCep = AuxiliarService.getEnderecoWebService(cep.getModelObject());
+            if (enderecoCep != null)
+            {
+               logradouro.setModel(Model.of(enderecoCep.getLogradouro()));
+               bairro.setModel(Model.of(enderecoCep.getBairro()));
+               estado.setModel(Model.of(enderecoCep.getEstado()));
+               cidade.setModel(Model.of(enderecoCep.getCidade()));
+            }
+            else
+            {
+               error("Cep não encontrado.");
+            }
+            target.add(logradouro, bairro, estado, cidade, feedback);
+         }
+      });
+      add(cep);
 
-		bairro = new TextField<String>("bairro");
-		bairro.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "bairro"));
-		add(bairro);
+      logradouro = new TextField<String>("logradouro");
+      logradouro.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(),
+         "logradouro"));
+      add(logradouro);
 
-		cidade = new TextField<String>("cidade");
-		cidade.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "cidade"));
-		add(cidade);
+      bairro = new TextField<String>("bairro");
+      bairro.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "bairro"));
+      add(bairro);
 
-		estado = new TextField<String>("estado");
-		estado.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "estado"));
-		add(estado);
-		
-		
-		btConfirmar = new AjaxButton("confirmar") {
+      cidade = new TextField<String>("cidade");
+      cidade.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "cidade"));
+      add(cidade);
 
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				
-				 atualizarCliente(cliente);
-				 String menssagem = "Cliente atualizado com sucesso !";
-				 setResponsePage(new AdministradorClientePage());
-			}
+      estado = new TextField<String>("estado");
+      estado.setModel(new PropertyModel<String>(cliente.getContato().getEndereco(), "estado"));
+      add(estado);
 
-		
-		};
-		add(btConfirmar);
+      btConfirmar = new AjaxButton("confirmar")
+      {
 
-	}
+         private static final long serialVersionUID = 1L;
 
-	protected abstract void atualizarCliente(Cliente cliente);
+         @Override
+         protected void onSubmit(AjaxRequestTarget target, Form<?> form)
+         {
+
+            atualizarCliente(cliente);
+            String mensagem = "Cliente atualizado com sucesso";
+            setResponsePage(new AdministradorClientePage(mensagem));
+         }
+
+      };
+      add(btConfirmar);
+
+   }
+
+   protected abstract void atualizarCliente(Cliente cliente);
 }

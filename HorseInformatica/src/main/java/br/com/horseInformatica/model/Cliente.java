@@ -230,18 +230,25 @@ public class Cliente implements Serializable
       int ano2 = cal.get(Calendar.YEAR);
 
       int anosDeCadastro = ano1 - ano2;
-      int diasDeCliente = day1 - day2;
+      int diasCliente = day1 - day2;
 
       if (anosDeCadastro < 1)
       {
 
          if ((day1 - day2) > 30)
          {
-            tempoDeCadastro = (diasDeCliente / 30) + " meses";
+            tempoDeCadastro = (diasCliente / 30) + " meses";
          }
          else
          {
-            tempoDeCadastro = diasDeCliente + " dias";
+            if (diasCliente != 0)
+            {
+               tempoDeCadastro = diasCliente + " dias";
+            }
+            else
+            {
+               tempoDeCadastro = "Cliente cadastrado hoje.";
+            }
          }
 
       }
