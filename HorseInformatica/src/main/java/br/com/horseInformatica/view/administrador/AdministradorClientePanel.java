@@ -1,5 +1,6 @@
 package br.com.horseInformatica.view.administrador;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -20,7 +21,7 @@ public abstract class AdministradorClientePanel extends Panel
 
    private static final long serialVersionUID = -8023850191678212745L;
 
-   private List<Cliente> listaItensExclusao;
+   private final List<Cliente> listaItensExclusao = new ArrayList<Cliente>();
 
    public AdministradorClientePanel(String id)
    {
@@ -57,6 +58,10 @@ public abstract class AdministradorClientePanel extends Panel
                   @Override
                   protected void onSubmit(AjaxRequestTarget target, Form<?> form)
                   {
+                     if (clienteAtual.getCheckSelecionada())
+                     {
+                        excluirListaClientes(listaItensExclusao);
+                     }
                      excluirCliente(clienteAtual, target);
                   }
                };
@@ -123,6 +128,8 @@ public abstract class AdministradorClientePanel extends Panel
    {
       return listaItensExclusao;
    }
+
+   protected abstract void excluirListaClientes(List<Cliente> listaItens);
 
    protected abstract void excluirCliente(Cliente clienteAtual, AjaxRequestTarget target);
 

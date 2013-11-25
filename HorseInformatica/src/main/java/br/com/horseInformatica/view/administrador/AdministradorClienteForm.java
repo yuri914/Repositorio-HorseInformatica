@@ -68,6 +68,12 @@ public abstract class AdministradorClienteForm extends Form<Cliente>
          {
             setResponsePage(new AdministradorAtualizaClientePage(clienteAtual));
          }
+
+         @Override
+         protected void excluirListaClientes(List<Cliente> listaItens)
+         {
+            AdministradorClienteForm.this.excluirListaClientes(listaItens);
+         }
       };
       panelCliente.setGridCliente(buscarListaCliente());
       panelCliente.setOutputMarkupId(true);
@@ -119,6 +125,8 @@ public abstract class AdministradorClienteForm extends Form<Cliente>
       };
       add(btRelatorio);
    }
+
+   protected abstract void excluirListaClientes(List<Cliente> listaItens);
 
    protected abstract void atualizaCliente(Cliente clienteAtual);
 

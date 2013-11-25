@@ -11,7 +11,7 @@
 /* CSS Personalizado */
 
 a:hover {
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 .centralizarTexto{

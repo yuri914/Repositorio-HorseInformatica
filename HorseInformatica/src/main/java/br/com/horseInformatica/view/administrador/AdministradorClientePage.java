@@ -45,6 +45,12 @@ public class AdministradorClientePage extends AdministradorBasePage
 
          }
 
+         @Override
+         protected void excluirListaClientes(List<Cliente> listaItens)
+         {
+            serviceCliente.excluirListaClientesBanco(listaItens);
+         }
+
       });
    }
 

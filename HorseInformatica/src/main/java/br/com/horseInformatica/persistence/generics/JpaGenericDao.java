@@ -4,76 +4,93 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.transaction.annotation.Transactional;
 
-public class JpaGenericDao <T> implements GenericDao <T> {
+public class JpaGenericDao<T> implements GenericDao<T>
+{
 
-	@PersistenceContext
-	private EntityManager entityManager;
-	
-	private Class<T> persistenceClass;
-	
-	public JpaGenericDao(Class<T> persistClass){
-		this.persistenceClass = persistClass;
-	}
-	
-	public EntityManager getEntityManager() {
-		if (entityManager == null)
-			System.out.println("O entityManager está nulo.");
-		return entityManager;
-	}
+   @PersistenceContext
+   private EntityManager entityManager;
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+   private Class<T> persistenceClass;
 
-	public Class<T> getPersistenceClass() {
-		if(persistenceClass == null)
-			System.out.println("A classe persistente não pode ser nula.");
-		return persistenceClass;
-	}
+   public JpaGenericDao(Class<T> persistClass)
+   {
+      this.persistenceClass = persistClass;
+   }
 
-	public void setPersistenceClass(Class<T> persistenceClass) {
-		this.persistenceClass = persistenceClass;
-	}
+   public EntityManager getEntityManager()
+   {
+      if (entityManager == null)
+      {
+         System.out.println("O entityManager está nulo.");
+      }
+      return entityManager;
+   }
 
-	public Query createQuery(String jpql, Object...params){
-		Query query = this.getEntityManager().createQuery(jpql);
-		int i = 0;
-		for(Object param : params){
-			query.setParameter(++i, param);
-		}
-		return query;
-	}
-	
-	@Override
-	@Transactional
-	public void persist(Object object) {
-		getEntityManager().persist(object);
-	}
+   public void setEntityManager(EntityManager entityManager)
+   {
+      this.entityManager = entityManager;
+   }
 
-	@Override
-	@Transactional
-	public void update(Object object) {
-		getEntityManager().merge(object);
-	}
+   public Class<T> getPersistenceClass()
+   {
+      if (persistenceClass == null)
+      {
+         System.out.println("A classe persistente não pode ser nula.");
+      }
+      return persistenceClass;
+   }
 
-	@Override
-	@Transactional
-	public void delete(Integer id) {
-		this.getEntityManager().remove(this.getEntityManager().getReference(getPersistenceClass(), id));
-	}
+   public void setPersistenceClass(Class<T> persistenceClass)
+   {
+      this.persistenceClass = persistenceClass;
+   }
 
-	@Override
-	public T find(Integer id) {
-		return getEntityManager().find(persistenceClass, id);
-	}
+   public Query createQuery(String jpql, Object... params)
+   {
+      Query query = this.getEntityManager().createQuery(jpql);
+      int i = 0;
+      for (Object param : params)
+      {
+         query.setParameter(++i, param);
+      }
+      return query;
+   }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findAll() {
-		Query query = createQuery("From " + persistenceClass.getSimpleName()); 
-		return query.getResultList();
-	}
+   @Override
+   @Transactional
+   public void persist(Object object)
+   {
+      getEntityManager().persist(object);
+   }
+
+   @Override
+   @Transactional
+   public void update(Object object)
+   {
+      getEntityManager().merge(object);
+   }
+
+   @Override
+   @Transactional
+   public void delete(Integer id)
+   {
+      this.getEntityManager().remove(
+         this.getEntityManager().getReference(getPersistenceClass(), id));
+   }
+
+   @Override
+   public T find(Integer id)
+   {
+      return getEntityManager().find(persistenceClass, id);
+   }
+
+   @SuppressWarnings("unchecked")
+   @Override
+   public List<T> findAll()
+   {
+      Query query = createQuery("From " + persistenceClass.getSimpleName());
+      return query.getResultList();
+   }
 }

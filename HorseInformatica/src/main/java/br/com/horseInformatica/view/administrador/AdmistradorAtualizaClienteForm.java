@@ -19,6 +19,7 @@ import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.AuxiliarService;
 import br.com.horseInformatica.to.EnderecoTO;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
+import br.com.horseInformatica.view.base.BasePage;
 
 public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
 {
@@ -43,13 +44,17 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
    private final TextField<String> bairro;
    private final TextField<String> cidade;
    private final TextField<String> estado;
-
+   private final TextField<String> login;
+   private final TextField<String> senhaAtual;
+   private final TextField<String> senha;
    private final AjaxButton btConfirmar;
+   private Cliente clienteAtualizar;
 
    public AdmistradorAtualizaClienteForm(String id, final Cliente cliente)
    {
       super(id);
 
+      setClienteAtualizar(cliente);
       feedback = new FeedbackPanel("mensagem");
       feedback.setOutputMarkupPlaceholderTag(true);
       add(feedback);
@@ -82,6 +87,18 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
       genero.setModel(new PropertyModel<EnumSexo>(cliente, "sexo"));
       genero.setSuffix("  ");
       add(genero);
+
+      login = new TextField<String>("login");
+      login.setModel(new PropertyModel<String>(cliente, "login"));
+      add(login);
+
+      senhaAtual = new TextField<String>("senhaAtual");
+      senhaAtual.setModel(new Model(""));
+      add(senhaAtual);
+
+      senha = new TextField<String>("senha");
+      senha.setModel(new Model(""));
+      add(senha);
 
       email = new TextField<String>("email");
       email.setModel(new PropertyModel<String>(cliente.getContato(), "email"));
@@ -147,15 +164,40 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
          @Override
          protected void onSubmit(AjaxRequestTarget target, Form<?> form)
          {
+            if (senhaAtual.getModelObject().equals(getClienteAtualizar().getSenha()))
+            {
+               cliente.setSenha(senha.getModelObject());
+               atualizarCliente(cliente);
+               target.appendJavaScript("alert('Cliente atualizado com sucesso!')");
 
-            atualizarCliente(cliente);
-            String mensagem = "Cliente atualizado com sucesso";
-            setResponsePage(new AdministradorClientePage(mensagem));
+               setResponsePage(new BasePage());
+            }
+            else
+            {
+               target.appendJavaScript("alert('Senha atual informada inválida!')");
+            }
+            target.add(feedback);
          }
 
       };
       add(btConfirmar);
 
+   }
+
+   public Cliente getClienteAtualizar()
+   {
+      if (clienteAtualizar == null)
+      {
+         clienteAtualizar = new Cliente();
+
+      }
+
+      return clienteAtualizar;
+   }
+
+   public void setClienteAtualizar(Cliente clienteAtualizar)
+   {
+      this.clienteAtualizar = clienteAtualizar;
    }
 
    protected abstract void atualizarCliente(Cliente cliente);

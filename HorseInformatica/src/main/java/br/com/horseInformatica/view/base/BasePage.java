@@ -4,93 +4,122 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.ServiceProduto;
+import br.com.horseInformatica.view.administrador.AdministradorAtualizaClientePage;
 import br.com.horseInformatica.view.index.IndexPage;
 import br.com.horseInformatica.view.main.HomePage;
 import br.com.horseInformatica.view.produtos.AcessoriosPage;
 import br.com.horseInformatica.view.produtos.ComputadoresPage;
 import br.com.horseInformatica.view.produtos.SmartphonesPage;
 
-public class BasePage extends WebPage {
+public class BasePage extends WebPage
+{
 
-	private static final long serialVersionUID = 6718941760776214183L;
-	
-	@SpringBean
-	private ServiceProduto serviceProduto;
-	private Label saudacao;
+   private static final long serialVersionUID = 6718941760776214183L;
 
-	public BasePage(){
-		
-		Cliente clienteSessao = (Cliente) getSession().getAttribute("clienteSessao");
-		
-		saudacao = new Label("saudacaoCliente");
-		saudacao.setDefaultModel(Model.of("Bem vindo, " + clienteSessao.getNome()));
-		add(saudacao);
-		
-		add(new AjaxLink<Void>("homeCliente"){
+   @SpringBean
+   private ServiceProduto serviceProduto;
+   private final Label saudacao;
 
-			private static final long serialVersionUID = 4135895316768093975L;
+   public BasePage()
+   {
 
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(IndexPage.class);
-			}
-			
-		});
-		
-		add(new AjaxLink<Void>("smartphones"){
+      final Cliente clienteSessao = (Cliente) getSession().getAttribute("clienteSessao");
 
-			private static final long serialVersionUID = 4135895316768093975L;
+      saudacao = new Label("saudacaoCliente");
+      saudacao.setDefaultModel(Model.of("Bem vindo, " + clienteSessao.getNome()));
+      add(saudacao);
 
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(SmartphonesPage.class);
-			}
-			
-		});
-		
-		add(new AjaxLink<Void>("computadores"){
+      add(new AjaxLink<Void>("homeCliente")
+      {
 
-			private static final long serialVersionUID = 1803183884188641533L;
+         private static final long serialVersionUID = 4135895316768093975L;
 
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(ComputadoresPage.class);
-			}
-			
-		});
-		
-		add(new AjaxLink<Void>("acessorios"){
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+            setResponsePage(IndexPage.class);
+         }
 
-			private static final long serialVersionUID = 265302040222864545L;
+      });
 
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(AcessoriosPage.class);
-			}
-			
-		});
-		
-		add(new AjaxLink<Void>("sair"){
+      add(new AjaxLink<Void>("smartphones")
+      {
 
-			private static final long serialVersionUID = 265302040222864545L;
+         private static final long serialVersionUID = 4135895316768093975L;
 
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				getSession().invalidate();
-				setResponsePage(HomePage.class);
-			}
-		});
-		
-	}
-	
-	public void renderHead(IHeaderResponse response) {
-		response.render(CssHeaderItem.forUrl("css/bootstrap.css"));
-	}
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+            setResponsePage(SmartphonesPage.class);
+         }
+
+      });
+
+      add(new AjaxLink<Void>("computadores")
+      {
+
+         private static final long serialVersionUID = 1803183884188641533L;
+
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+            setResponsePage(ComputadoresPage.class);
+         }
+
+      });
+
+      add(new AjaxLink<Void>("acessorios")
+      {
+
+         private static final long serialVersionUID = 265302040222864545L;
+
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+            setResponsePage(AcessoriosPage.class);
+         }
+
+      });
+
+      add(new AjaxLink<Void>("atualizar")
+      {
+
+         private static final long serialVersionUID = 265302040222864545L;
+
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+
+            setResponsePage(new AdministradorAtualizaClientePage(clienteSessao));
+         }
+      });
+
+      add(new AjaxLink<Void>("sair")
+      {
+
+         private static final long serialVersionUID = 265302040222864545L;
+
+         @Override
+         public void onClick(AjaxRequestTarget target)
+         {
+            getSession().invalidate();
+            setResponsePage(HomePage.class);
+         }
+      });
+
+   }
+
+   @Override
+   public void renderHead(IHeaderResponse response)
+   {
+      response.render(CssHeaderItem.forUrl("css/bootstrap.css"));
+      response.render(JavaScriptHeaderItem.forUrl("js/bootstrap.js"));
+   }
 }
