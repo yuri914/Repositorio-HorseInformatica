@@ -14,6 +14,10 @@ a:hover {
 	text-decoration: none !important;
 }
 
+.larguraDrop{
+	width: 100px;
+}
+
 .centralizarTexto{
 	text-align: center !important;
 }

@@ -10,6 +10,7 @@ import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -45,8 +46,8 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
    private final TextField<String> cidade;
    private final TextField<String> estado;
    private final TextField<String> login;
-   private final TextField<String> senhaAtual;
-   private final TextField<String> senha;
+   private final PasswordTextField senhaAtual;
+   private final PasswordTextField senha;
    private final AjaxButton btConfirmar;
    private Cliente clienteAtualizar;
 
@@ -92,11 +93,13 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
       login.setModel(new PropertyModel<String>(cliente, "login"));
       add(login);
 
-      senhaAtual = new TextField<String>("senhaAtual");
+      senhaAtual = new PasswordTextField("senhaAtual");
+      senhaAtual.setRequired(false);
       senhaAtual.setModel(new Model(""));
       add(senhaAtual);
 
-      senha = new TextField<String>("senha");
+      senha = new PasswordTextField("senha");
+      senha.setRequired(false);
       senha.setModel(new Model(""));
       add(senha);
 
@@ -164,18 +167,27 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
          @Override
          protected void onSubmit(AjaxRequestTarget target, Form<?> form)
          {
-            if (senhaAtual.getModelObject().equals(getClienteAtualizar().getSenha()))
+            if (!verificaCamposSenha())
             {
-               cliente.setSenha(senha.getModelObject());
-               atualizarCliente(cliente);
-               target.appendJavaScript("alert('Cliente atualizado com sucesso!')");
+               if (senhaAtual.getModelObject().equals(getClienteAtualizar().getSenha()))
+               {
+                  cliente.setSenha(senha.getModelObject());
+                  atualizarCliente(cliente);
+                  target.appendJavaScript("alert('Cliente atualizado com sucesso!')");
 
-               setResponsePage(new BasePage());
+                  setResponsePage(new BasePage());
+               }
+               else
+               {
+                  target.appendJavaScript("alert('Senha atual informada inválida!')");
+               }
             }
-            else
-            {
-               target.appendJavaScript("alert('Senha atual informada inválida!')");
-            }
+            target.add(feedback);
+         }
+
+         @Override
+         protected void onError(AjaxRequestTarget target, Form<?> form)
+         {
             target.add(feedback);
          }
 
@@ -198,6 +210,22 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
    public void setClienteAtualizar(Cliente clienteAtualizar)
    {
       this.clienteAtualizar = clienteAtualizar;
+   }
+
+   public boolean verificaCamposSenha()
+   {
+      boolean verificou = false;
+      if (senha.getModelObject() == null)
+      {
+         error("Nova senha é de preenchimento obrigátorio !");
+         verificou = true;
+      }
+      if (senhaAtual.getModelObject() == null)
+      {
+         error("Senha atual é de preenchimento obrigátorio !");
+         verificou = true;
+      }
+      return verificou;
    }
 
    protected abstract void atualizarCliente(Cliente cliente);
