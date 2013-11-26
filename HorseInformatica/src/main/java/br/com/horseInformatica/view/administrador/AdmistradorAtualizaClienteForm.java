@@ -46,9 +46,8 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente> {
 	private TextField<String> bairro;
 	private TextField<String> cidade;
 	private TextField<String> estado;
-
-
-
+	
+	
 	private AjaxButton btConfirmar;
 	
 	public AdmistradorAtualizaClienteForm(String id, final Cliente cliente) {

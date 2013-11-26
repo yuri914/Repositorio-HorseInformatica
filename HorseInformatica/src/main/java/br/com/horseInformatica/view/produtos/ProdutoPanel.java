@@ -33,6 +33,7 @@ public class ProdutoPanel extends Panel {
 				ByteArrayResource resource = new ByteArrayResource("image/jpeg", produto.getImagem());
 				item.add(new Image("imagem", resource));
 				item.add(new Label("nome", produto.getNome()));
+				item.add(new Label("preco", produto.getValor()));
 			}
 		};
 		add(new PagingNavigator("paginacao", repetidor));

@@ -22,7 +22,6 @@ public class AdministradorAtualizaClientePage extends WebPage {
 			@Override
 			protected void atualizarCliente(Cliente cliente) {
 				serviceCliente.atualizar(cliente);
-				
 			}
 			
 		});
