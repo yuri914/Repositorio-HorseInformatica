@@ -11,7 +11,11 @@
 /* CSS Personalizado */
 
 a:hover {
-	text-decoration: none;
+	text-decoration: none !important;
+}
+
+.larguraDrop{
+	width: 100px;
 }
 
 #produtoContainer{
