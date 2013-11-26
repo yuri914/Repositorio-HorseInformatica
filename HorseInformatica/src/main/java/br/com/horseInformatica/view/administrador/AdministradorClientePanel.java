@@ -112,7 +112,7 @@ public abstract class AdministradorClientePanel extends Panel
    protected DropDownChoice<Perfil> criarDropDown(String id, Cliente cliente)
    {
       DropDownChoice<Perfil> dropDown = new DropDownChoice<Perfil>(id);
-      dropDown.setModel(new PropertyModel<Perfil>(cliente.getPerfil(), "nome"));
+      dropDown.setModel(new PropertyModel<Perfil>(cliente, "perfil"));
       dropDown.setChoices(recuperarListaPerfil());
       dropDown.setChoiceRenderer(new ChoiceRenderer<Perfil>("nome"));
       return dropDown;
