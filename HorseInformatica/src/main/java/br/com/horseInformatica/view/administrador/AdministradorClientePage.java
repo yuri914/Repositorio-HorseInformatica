@@ -46,7 +46,7 @@ public class AdministradorClientePage extends AdministradorBasePage
          @Override
          protected void atualizaCliente(Cliente clienteAtual)
          {
-            serviceCliente.persist(clienteAtual);
+            serviceCliente.update(clienteAtual);
 
          }
 

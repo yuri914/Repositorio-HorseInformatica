@@ -2,7 +2,6 @@ package br.com.horseInformatica.view.administrador;
 
 import java.util.Arrays;
 import java.util.Date;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -17,11 +16,11 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-
 import br.com.horseInformatica.model.Cliente;
 import br.com.horseInformatica.service.AuxiliarService;
 import br.com.horseInformatica.to.EnderecoTO;
 import br.com.horseInformatica.util.enumerations.EnumSexo;
+import br.com.horseInformatica.util.validators.EmailValidator;
 import br.com.horseInformatica.view.base.BasePage;
 
 public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
@@ -30,7 +29,6 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
    private static final long serialVersionUID = 2535896341184251584L;
 
    private final FeedbackPanel feedback;
-
 
    // Dados Pessoais
    private final TextField<String> nome;
@@ -174,11 +172,18 @@ public abstract class AdmistradorAtualizaClienteForm extends Form<Cliente>
             {
                if (senhaAtual.getModelObject().equals(getClienteAtualizar().getSenha()))
                {
-                  cliente.setSenha(senha.getModelObject());
-                  atualizarCliente(cliente);
-                  target.appendJavaScript("alert('Cliente atualizado com sucesso!')");
-
-                  setResponsePage(new BasePage());
+                  if (new EmailValidator(email.getModelObject()).validar())
+                  {
+                     cliente.setSenha(senha.getModelObject());
+                     atualizarCliente(cliente);
+                     target.appendJavaScript("alert('Cliente atualizado com sucesso!')");
+                     setResponsePage(new BasePage());
+                  }
+                  else
+                  {
+                     error("Email informado inválido.");
+                     target.add(feedback);
+                  }
                }
                else
                {

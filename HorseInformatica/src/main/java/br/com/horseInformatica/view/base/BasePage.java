@@ -113,7 +113,6 @@ public class BasePage extends WebPage
             setResponsePage(HomePage.class);
          }
       });
-
    }
 
    @Override
