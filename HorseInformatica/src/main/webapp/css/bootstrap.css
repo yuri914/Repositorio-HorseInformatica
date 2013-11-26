@@ -18,6 +18,10 @@ a:hover {
 	width: 100px;
 }
 
+.centralizarAcao{
+	margin-top: 5px;
+}
+
 #produtoContainer{
 	text-align: center !important;
 	margin: 50px;
